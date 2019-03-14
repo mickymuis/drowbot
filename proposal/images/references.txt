@@ -23,3 +23,6 @@ Ming Zhang, on Thingyverse.com
 
 drawingrobot3.jpg
 Makeblock mDrawBot
+
+maslowCNC.jpg
+Maslow CNC
