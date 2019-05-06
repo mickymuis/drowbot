@@ -1,0 +1,75 @@
+ 5 STEP NE
+ 6 STEP E
+13 DIR E
+19 Servo PWM
+XX
+XX
+
+XX
+12 DIR NE
+XX
+XX
+XX
+XX
+XX
+
+Ethernet on right
+
+
+PWM on 5/6
+13 (R) 1
+12 (L) 0
+
+//bGRB
+//RbGB
+//OYRB
+//ROYB
+//RYRB
+
+=============
++++ MATHS +++
+=============
+
+%%% Start:
+=== Initial position
+Move to the top left corner of drawing area and reset steps
+
+Measure top side (a) and the length of the chains (mm).
+a = length between motors
+b = left chain
+c = right chain
+
+Heron's to get height sy then use that to calculate sx.
+ s = (a + b + c)/2.0
+ A = sqrt(s * (s - a) * (s - b) * (s - c))
+   = (a * sy)/2.0
+sy = (2.0 * A)/a
+sx = sqrt(b * b - sy * sy)
+
+=== Second calibration: (Only needs to happen once)
+Move in a way that changes the left chain length (a lot)
+Measure left chain again
+Determine steps/measured units (mm)
+Convert a, b, c, sx, sy into a step based system
+The max x pos is now clear (a - sx - some margin)
+
+%%% Operation:
+=== Getting chain lengths for some (x, y) inside area
+   a = top length (steps)
+x, y = coordinates inside area
+p, q = xs + x, ys + y
+   b = sqrt(p * p + q * q)
+   c = sqrt(((a - p) * (a - p) + q * q)
+
+Smoothing movement is probably going to be based on a
+pre-defined timescale (800Hz-ish) and then moving is
+based in 200-400Hz so we can hopefully have smooth-ish
+movement for most of the required movements we will do.
+
+%%% Demonstration:
+After calibration we move it down to 0,(w/e low spot)
+Drowbot some boxes or lines to contain the initial state
+Have some audience member fill them
+Let someone else pick a rules nr (from a set of good ones)?
+DROWBOT COMMENCES
+

@@ -17,7 +17,7 @@ static int run_imgloop = 1;
 
 void cb(void * data, size_t len, void * udat){
   (void)udat;
-  fprintf(stderr, "%d: %lub (%p)\n", fcount, len, data);
+  fprintf(stderr, "%d: %ub (%p)\n", fcount, len, data);
   fcount++;
   if (img_dat == NULL){
     img_dat = malloc(len);
