@@ -4,6 +4,8 @@
 #include <string>
 #include <cstdint>
 #include <vector>
+#include "imgproc.h"
+
 
 #define IMG_W 640
 #define IMG_H 480
@@ -19,6 +21,7 @@ int ws_run = 1;
 static void handle_img(const void * data){
   void * tmp = malloc(IMGSIZE);
   std::memcpy(tmp, data, IMGSIZE);
+  process_image(tmp);
   cv::Mat imgbuf(IMG_H + IMG_H/2, IMG_W, CV_8UC1, tmp);
   rgbimg = cv::Mat(IMG_H, IMG_W, CV_8UC3);
   cv::cvtColor(imgbuf, rgbimg, cv::COLOR_YUV2BGR_I420);

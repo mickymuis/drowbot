@@ -78,7 +78,7 @@ int handle_servo(const int pos){
   if (pos == serv_pos)
     return 0;
 
-  if (pos < SRV_MAX && pos > SRV_MIN){
+  if (pos <= SRV_MAX && pos >= SRV_MIN){
     gpioServo(SRV_PWM, pos);
     gpioDelay(SRV_WAIT);
     gpioServo(SRV_PWM, 0);
@@ -125,7 +125,7 @@ void drv_stop(){
   gpioWrite(L_STEP, 0);
   gpioWrite(R_DIR, 0);
   gpioWrite(L_DIR, 0);
-  // gpioWrite(SERVO_PWM, 0);
+  // gpioWrite(SRV_PWM, 0);
 
 }
 
@@ -152,7 +152,7 @@ int drv_init(const int dir_left, const int dir_right){
   gpioSetMode(R_DIR,  PI_OUTPUT);
   gpioSetMode(L_STEP, PI_OUTPUT);
   gpioSetMode(R_STEP, PI_OUTPUT);
-  // gpioServo(SERVO_PWM, SRV_MID);
+  // gpioServo(SRV_PWM, SRV_MID);
 
   drv_stop();
   return 0;
@@ -161,4 +161,26 @@ int drv_init(const int dir_left, const int dir_right){
 void drv_term(){
   drv_stop();
   gpioTerminate();
+}
+
+
+void drv_servo_stuff(){
+  // gpioServo(SRV_PWM, SRV_MID);
+  int pos = SRV_MID;
+  while (1){
+    fprintf(stderr, "%4d | NEW POS PLS [%d-%d]>", pos, SRV_MIN, SRV_MAX);
+    if (scanf("%d", &pos) != 1){
+      perror("scanf");
+      continue;
+    }
+    if (pos == 0)
+      break;
+    if (pos < SRV_MIN || pos > SRV_MAX){
+      fprintf(stderr, "BAD\n");
+      continue;
+    }
+    gpioServo(SRV_PWM, pos);
+    gpioDelay(SRV_WAIT);
+    gpioServo(SRV_PWM, 0);
+  }
 }

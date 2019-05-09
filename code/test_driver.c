@@ -6,6 +6,8 @@ int main(){
   if (drv_init(1, 1))
     return -1;
 
+  // drv_servo_stuff();
+
   int left, right, draw;
   while (1){
     fprintf(stderr, "%5d %5d %d left right draw?>",

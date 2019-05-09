@@ -13,7 +13,6 @@
 #include <pthread.h>
 
 
-
 static int xioctl(int fh, int request, void *arg)
 {
   int r;
@@ -102,14 +101,35 @@ int get_frame(int fd){
     perror("get_frame_DQ");
     return -1;
   }
+  int requeue = 1;
   if (fcb)
-    (*fcb)(buffers[buf.index].start, buf.bytesused, udata);
+    if ((*fcb)(buffers[buf.index].start, buf.bytesused, udata))
+      requeue = 0;
 
-  if (xioctl(fd, VIDIOC_QBUF,&buf) == -1){
-    perror("get_frame_Q");
-    return -1;
+  if (requeue){
+    if (xioctl(fd, VIDIOC_QBUF,&buf) == -1){
+      perror("get_frame_Q");
+      return -1;
+    }
   }
   return 0;
+}
+
+int requeue_buffer(void * data){
+  for (unsigned i = 0; i < buf_c; i++)
+    if (buffers[i].start == data){
+      struct v4l2_buffer buf = {.index = i,
+                                .type=V4L2_BUF_TYPE_VIDEO_CAPTURE,
+                                .memory = V4L2_MEMORY_MMAP, {0}};
+      if (xioctl(cfd, VIDIOC_QBUF,&buf) == -1){
+        perror("queue buf");
+        return -1;
+      }
+      return 0;
+
+    }
+
+  return -1;
 }
 
 void* main_loop(void * args){
@@ -217,7 +237,9 @@ void start_capture(const int max_frames_arg){
 }
 
 void stop_capture(){
-  run = 0;
-  pthread_join(thread, NULL);
-  clean_up();
+  if (run){
+    run = 0;
+    pthread_join(thread, NULL);
+    clean_up();
+  }
 }

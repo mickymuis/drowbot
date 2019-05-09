@@ -12,19 +12,19 @@
 
 #define SRV_PWM     19
 #define SRV_DRAW  1200
-#define SRV_SKIP  1800
+#define SRV_SKIP   500
 
-#define SRV_MIN   1000
-#define SRV_MAX   2000
-#define SRV_MID   1500
+#define SRV_MIN   500
+#define SRV_MAX   1500
+#define SRV_MID   1000
 
 
 #define T_MS      1000
 #define T_S       (T_MS * 1000)
 
-#define SRV_WAIT  T_S
+#define SRV_WAIT  T_S/2
 
-#define STEP_FREQ  500
+#define STEP_FREQ  100
 #define STEP_WAIT (T_S/(STEP_FREQ*2))
 
 
@@ -42,5 +42,7 @@ int   drv_spos();
 
 void  drv_set_pos(const int left, const int right);
 void  drv_reset_pos();
+
+void drv_servo_stuff();
 
 #endif
