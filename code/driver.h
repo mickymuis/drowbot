@@ -14,10 +14,9 @@
 #define SRV_DRAW  1200
 #define SRV_SKIP   500
 
-#define SRV_MIN   500
+#define SRV_MIN    500
 #define SRV_MAX   1500
 #define SRV_MID   1000
-
 
 #define T_MS      1000
 #define T_S       (T_MS * 1000)
@@ -43,6 +42,9 @@ int   drv_spos();
 void  drv_set_pos(const int left, const int right);
 void  drv_reset_pos();
 
-void drv_servo_stuff();
+void  drv_set_draw(const int draw);
+void  drv_servo_stuff();
+
+void drv_new_step_to(const int l, const int r);
 
 #endif

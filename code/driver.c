@@ -61,7 +61,7 @@ int handle_steps(const int left, const int right){
     }
     if (sr && step_r-- > 0){
       gpioWrite(R_STEP, 0);
-      real_pos[1] +=dir_r;
+      real_pos[1] += dir_r;
     }
     gpioDelay(wait_len);
   }
@@ -88,6 +88,13 @@ int handle_servo(const int pos){
     return -1;
   }
   return 0;
+}
+
+void drv_set_draw(const int draw){
+  if (draw)
+    handle_servo(SRV_DRAW);
+  else
+    handle_servo(SRV_SKIP);
 }
 
 int drv_step_to(const int left, const int right, const int draw){
@@ -152,6 +159,7 @@ int drv_init(const int dir_left, const int dir_right){
   gpioSetMode(R_DIR,  PI_OUTPUT);
   gpioSetMode(L_STEP, PI_OUTPUT);
   gpioSetMode(R_STEP, PI_OUTPUT);
+  handle_servo(SRV_SKIP);
   // gpioServo(SRV_PWM, SRV_MID);
 
   drv_stop();
@@ -184,3 +192,58 @@ void drv_servo_stuff(){
     gpioServo(SRV_PWM, 0);
   }
 }
+
+int cur_dir[2]  = {0, 0};
+int cur_rdir[2] = {0, 0};
+
+
+void drv_new_set_dir(const int l_dir, const int r_dir){
+  int wait = 0;
+  if (l_dir != cur_dir[0]){
+    gpioWrite(L_DIR, (l_dir * dir[0] < 0) ? 1 : 0);
+    cur_dir[0] = l_dir;
+    wait = 1;
+  }
+  if (r_dir != cur_dir[1]){
+    gpioWrite(R_DIR, (r_dir * dir[1] < 0)? 1 : 0);
+    cur_dir[1] = r_dir;
+    wait = 1;
+  }
+  if (wait)
+    gpioDelay(1000);
+}
+
+void drv_new_step(const int l, const int r){
+  if (l == 0 && r == 0)
+    return;
+
+  if (l)  gpioWrite(L_STEP, 1);
+  if (r)  gpioWrite(R_STEP, 1);
+  gpioDelay(STEP_WAIT);
+
+  if (l){ gpioWrite(L_STEP, 0); pos[0] += cur_dir[0]; }
+  if (r){ gpioWrite(R_STEP, 0); pos[1] += cur_dir[1]; }
+  gpioDelay(STEP_WAIT);
+}
+
+void drv_new_step_to(const int l, const int r){
+  int ldist = (l - pos[0]);
+  int rdist = (r - pos[1]);
+  if (ldist == 0 && rdist == 0)
+    return;
+
+  int l_dir = ldist > 0 ? 1 : -1;
+  int r_dir = rdist > 0 ? 1 : -1;
+  drv_new_set_dir(l_dir, r_dir);
+  int lc = abs(ldist), rc = abs(rdist);
+
+  while (lc > 0 || rc > 0)
+    drv_new_step(lc-- > 0, rc-- > 0);
+
+  if (pos[0] != l || pos[1] != r){
+    fprintf(stderr, "Error: Steps counts don't match %d %d != %d %d\n",
+                    l,r,pos[0],pos[1]);
+  }
+}
+
+

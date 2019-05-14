@@ -2,6 +2,7 @@
 #include <math.h>
 #include "move.h"
 #include "calibration.h"
+#include <unistd.h>
 
 #define X_MAX LEN_TOP - (SX * 2)
 #define Y_MAX (1300 * 1000)/STEP_MCM
@@ -48,4 +49,12 @@ int move_init(){
 
 void move_term(){
   move_to(0,0,0);
+}
+
+int move_ask_for_coords(){
+  return 0;
+}
+
+int move_to_s(const int x, const int y, const int draw){
+  return move_to(x,y,draw);
 }

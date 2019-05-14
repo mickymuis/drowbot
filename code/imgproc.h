@@ -17,7 +17,7 @@ inline uint8_t* pix(void * data, const int x, const int y){
   return &((uint8_t*)data)[y * IP_W + x];
 }
 
-inline int process_image(const void * data){
+inline int process_image(const uint8_t * data){
   int high = 0;
   const uint8_t *dat = data;
   for (int y = IP_SY; y < IP_SY + IP_SIZE; y++)
@@ -27,8 +27,7 @@ inline int process_image(const void * data){
   return (high > MIN_HIGH)? 1 : 0;
 }
 
-
-inline int process_image_old(void * data){
+inline int process_image_verbose(void * data){
   uint32_t sum = 0, count = 0, max = 0, min = 255, high = 0;
   for (int y = IP_SY; y < IP_SY + IP_SIZE; y++)
     for (int x = IP_SX; x < IP_SX + IP_SIZE; x++){
@@ -45,5 +44,5 @@ inline int process_image_old(void * data){
     }
   fprintf(stderr, "Avg: %f, Min %u, Max %u, high: %d (%f)\n",
                   (double)sum/count, min, max, high, (double)high/count);
-  return 0;
+  return (high > MIN_HIGH)? 1 : 0;;
 }

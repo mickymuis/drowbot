@@ -73,3 +73,9 @@ Have some audience member fill them
 Let someone else pick a rules nr (from a set of good ones)?
 DROWBOT COMMENCES
 
+
+
+|111|110|101|100|011|010|001|000|
+| 0 | 0 | 0 | 1 | 0 | 1 | 1 | 0 |
+|   |   |   | # |   | # | # |   |
+|###|## |# #|#  | ##| # |  #|   |

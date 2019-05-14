@@ -17,7 +17,8 @@ cv::Mat rgbimg;
 
 
 static void handle_img(void * data, const size_t len){
-  process_image(data);
+  (void)len;
+  process_image_verbose(data);
   cv::Mat imgbuf(IMG_H + IMG_H/2, IMG_W, CV_8UC1, data);
   rgbimg = cv::Mat(IMG_H, IMG_W, CV_8UC3);
   // fprintf(stderr, "bufsize %lu\n", imgbuf.total());
