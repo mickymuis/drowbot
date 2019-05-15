@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -O2
 LDFLAGS = -lcurl -lpigpio -lrt -lpthread -lm
 OPENCV_LD =  -lopencv_core -lopencv_highgui -lopencv_imgproc
 
-TARGETS = calibrate live_demo live_sim
+TARGETS = calibrate live_demo live_sim dragon
 TESTS   = test_video test_driver test_servo test_dump test_move
 CAMTEST = opencv_server opencv_test
 HEADERS = $(wildcard *.h)
@@ -50,6 +50,10 @@ opencv_server: opencv_server.cc $(MONGOOSE) $(HEADERS)
 
 opencv_test: opencv_test.cc $(HEADERS)
 	$(CXX) $(CFLAGS) -std=c++11 -o $@ $< $(LDFLAGS) $(OPENCV_LD)
+
+dragon: dragon.o move.o driver.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
 
 clean:
 	rm -f $(TARGETS) $(TESTS) $(CAMTEST) $(MONGOOSE) *.o

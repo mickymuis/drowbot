@@ -6,10 +6,12 @@
 #include "imgproc.h"
 #include <getopt.h>
 #include <time.h>
+#include <unistd.h>
 
 
 #define COL_COUNT_MAX    255
-#define CAM_DELAY  900 * 1000UL * 1000UL
+#define CAM_DELAY  500 * 1000UL * 1000UL
+#define CAM_DELAY_S 10
 #define MAX_X   2000
 #define MAX_Y   1200
 
@@ -63,9 +65,13 @@ void draw_initial_boxes(){
 
 inline void draw_cell(const int row, const int col){
   MOVE_TO(col*box_size, base_row - box_size * row, 0);
-  MOVE_TO(col*box_size, base_row - (box_size * (row-1)),1);
-  MOVE_TO((col + 1)*box_size, base_row - (box_size *row),1);
+  MOVE_TO((col + 1)*box_size, base_row - box_size * row,1);
+  MOVE_TO((col)*box_size,base_row - (box_size * (row-1)),1);
   MOVE_TO((col + 1)*box_size, base_row - (box_size *(row -1)),1);
+  // MOVE_TO(col*box_size, base_row - box_size * row, 0);
+  // MOVE_TO(col*box_size, base_row - (box_size * (row-1)),1);
+  // MOVE_TO((col + 1)*box_size, base_row - (box_size *row),1);
+  // MOVE_TO((col + 1)*box_size, base_row - (box_size *(row -1)),1);
 }
 
 
@@ -87,17 +93,22 @@ int draw_ca(){
 
 //Camera stuff
 char * cam_name = "/dev/video0";
-int cam_capture_img = 0;
-void * img_dat = NULL;
-size_t img_len = 0;
+static int cam_capture_img = 0;
+static void * img_dat = NULL;
+static size_t img_len = 0;
 
 int cam_get_state(){
   int state = -1;
   fprintf(stderr, "Getting state\n");
   cam_capture_img = 1;
-  while (img_dat == NULL){}
+  while (cam_capture_img >= 0){
+    struct timespec sl = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+    nanosleep(&sl, NULL);
+    fprintf(stderr, "\rWaiting for state %d \n",cam_capture_img);
+  }
   fprintf(stderr, "Processing img\n");
   state = process_image_verbose(img_dat);
+  requeue_buffer(img_dat);
   fprintf(stderr, "Reset capture\n");
   img_dat = NULL;
   cam_capture_img = 0;
@@ -128,18 +139,21 @@ int init_state[COL_COUNT_MAX] = {0};
 int read_initial_state(){
   fprintf(stderr, "Reading initial state\n");
   MOVE_TO(0, base_row, 0);
+  ca_init(0, col_count);
+
 
   for (int i = 0; i < col_count; i++){
-    MOVE_TO(i * box_size + (box_size/2), base_row, 0);
+    MOVE_TO(i * box_size + (box_size/2), base_row - box_size, 0);
+    if (i == 0)
+      sleep(CAM_DELAY_S);
     if (CAM_DELAY > 0){
       struct timespec sl = {.tv_sec = 0, .tv_nsec = CAM_DELAY};
       nanosleep(&sl, NULL);
+      // fprintf(stderr, "getting%s\n", );
     }
     int s = cam_get_state();
     fprintf(stderr, "%2d Got state? %d\n", i, s);
     if (s < 0)
-      return -1;
-    if (ca_set_cell(i, s))
       return -1;
     init_state[i] = s;
   }

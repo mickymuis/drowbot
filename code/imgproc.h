@@ -3,9 +3,9 @@
 
 #define IP_W 640
 #define IP_H 480
-#define IP_SIZE 240
-#define IP_SX 200
-#define IP_SY 120
+#define IP_SIZE 100
+#define IP_SX 320
+#define IP_SY 240
 
 #define THRESHOLD 100
 #define MIN_HIGH 1000
