@@ -9,7 +9,7 @@
 
 
 #define COL_COUNT_MAX    255
-#define CAM_DELAY  500 * 1000UL * 1000UL
+#define CAM_DELAY  900 * 1000UL * 1000UL
 #define MAX_X   2000
 #define MAX_Y   1200
 
@@ -80,7 +80,7 @@ int draw_ca(){
         draw_cell(i + 1,j);
       }
     }
-    draw_hline(base_row - i * box_size, row_len, 1);
+    // draw_hline(base_row - i * box_size, row_len, 1);
   }
   return 0;
 }
@@ -210,7 +210,7 @@ int pick_rule_no(){
 
 
 int main(int argc, char ** argv){
-  char c = 0;
+  int c = 0;
   int draw_boxes = 0,
       read_cam = 0,
       ca_rule = -1,
@@ -231,7 +231,6 @@ int main(int argc, char ** argv){
       case 'y': max_its   = atoi(optarg); break;
       case 'B': box_size  = atoi(optarg); break;
       case 'o': base_row  = atoi(optarg); break;
-      default:
       case 'h': fprintf(stderr, "Usage: %s [options]\n"
 " -b        - Draw boxes\n"
 " -c <path> - Use camera specified in path\n"
@@ -245,7 +244,10 @@ int main(int argc, char ** argv){
 " -B <int>  - Box size in steps\n"
 " -o <int>  - Base row (bottom) under which initial boxes are drawn\n"
 " -h        - Show this help text\n", argv[0]);
+              return -1;
               break;
+
+      default: break;
     }
   }
 

@@ -194,18 +194,19 @@ void drv_servo_stuff(){
 }
 
 int cur_dir[2]  = {0, 0};
-int cur_rdir[2] = {0, 0};
 
 
 void drv_new_set_dir(const int l_dir, const int r_dir){
   int wait = 0;
-  if (l_dir != cur_dir[0]){
-    gpioWrite(L_DIR, (l_dir * dir[0] < 0) ? 1 : 0);
+  if (l_dir != cur_dir[0] && l_dir){
+    fprintf(stderr, "Change l %d %d\n",l_dir,  l_dir * dir[0]);
+    gpioWrite(L_DIR, (l_dir * dir[0] > 0) ? 1 : 0);
     cur_dir[0] = l_dir;
     wait = 1;
   }
-  if (r_dir != cur_dir[1]){
-    gpioWrite(R_DIR, (r_dir * dir[1] < 0)? 1 : 0);
+  if (r_dir != cur_dir[1] && r_dir){
+    fprintf(stderr, "Change r %d %d\n", r_dir, r_dir * dir[1]);
+    gpioWrite(R_DIR, (r_dir * dir[1] > 0)? 1 : 0);
     cur_dir[1] = r_dir;
     wait = 1;
   }
@@ -232,10 +233,15 @@ void drv_new_step_to(const int l, const int r){
   if (ldist == 0 && rdist == 0)
     return;
 
-  int l_dir = ldist > 0 ? 1 : -1;
-  int r_dir = rdist > 0 ? 1 : -1;
+  int l_dir = 0;
+  if (ldist != 0)
+    l_dir = (ldist > 0) ? 1 : -1;
+  int r_dir = 0;
+  if (rdist != 0)
+  r_dir = (rdist > 0) ? 1 : -1;
   drv_new_set_dir(l_dir, r_dir);
   int lc = abs(ldist), rc = abs(rdist);
+  // fprintf(stderr, "Stepping %d %d\n", l_dir, r_dir);
 
   while (lc > 0 || rc > 0)
     drv_new_step(lc-- > 0, rc-- > 0);
