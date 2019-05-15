@@ -28,14 +28,19 @@ static const int DIR_COEFF[][2] = {
 typedef struct {
   int x, y;
   dir_t dir;  
+  int pen;
 } turtle_t;
 
+void 
+turtle_penDown( turtle_t *t, int down ) {
+  t->pen =down;
+}
+
 void
-turtle_turn( turtle_t* t, int deg ) {
+turtle_turn( turtle_t *t, int deg ) {
   deg /= 45;
-  t->dir += deg;
+  t->dir = (t->dir + deg) % 8;
   if( t->dir < 0 ) t->dir += 8;
-  else t->dir = t->dir % 8;
 }
 
 int
@@ -59,26 +64,37 @@ turtle_line( turtle_t* t, int len ) {
   return 0;
 }
 
+void
+dragon_curveRecursive(turtle_t *t, int order, int length, int sign ){
+  static const float ROOT_HALF = sqrt( .5f );
+  
+  if( order == 0 ) {
+    turtle_line( t, length );
+  } else {
+    dragon_curveRecursive( order - 1, (float)length * ROOT_HALF, 1);
+    turtle_turn( t, sign * -90 );
+    dragon_curveRecursive( order - 1, (float)length * ROOT_HALF, -1);
+  }
+}
+
+void
+dragon_curve( turtle_t *t, int order, int length) {
+  turtle_turn( t, order * 45 );
+  dragon_curveRecursive(order, length, 1);
+}
+
 int main(){
   if (move_init())
     return -1;
+    
+  int cx = MAX_X /2; int cy = MAX_Y /2;
 
-  int x,y,draw;
-
-  if (getchar()=='s')
-    move_ask_for_coords();
-
-
-  while (1){
-    fprintf(stderr, "%5d %5d left right draw?>",
-                     get_x(), get_y());
-    if (scanf("%d%d%d",&x, &y,&draw) !=3 )
-      break;
-    if (x <  0 || y < 0)
-      break;
-    // move_to(x, y, draw);
-    move_to_s(x, y, draw);
-  }
+  turtle_t t;
+  t->x = cx; t->y =cy; t->pen =1; t->dir =N;
+  
+  move_to_s( cx, cy, 0 );
+  
+  dragon_curve( &t, 4, LINE_LENGTH );
 
   move_term();
   return 0;
