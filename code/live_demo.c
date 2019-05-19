@@ -2,6 +2,7 @@
 #include "vid_capture.h"
 #include "ca.h"
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include "imgproc.h"
 #include <getopt.h>
@@ -230,9 +231,11 @@ int main(int argc, char ** argv){
       ca_rule = -1,
       seed = 0,
       ask_coord = 0,
-      do_draw_ca = 0;
+      do_draw_ca = 0,
+      ask_state = 0;
+  char * state_string = NULL;
 
-  while ((c = getopt(argc, argv, "hbc:Cs:r:dax:B:y:o:")) != -1){
+  while ((c = getopt(argc, argv, "hbc:Cs:r:dax:B:y:o:Sv:")) != -1){
     switch (c){
       case 'b': draw_boxes = 1; break;
       case 'c': read_cam = 1; cam_name = optarg; break;
@@ -241,6 +244,8 @@ int main(int argc, char ** argv){
       case 'r': ca_rule = atoi(optarg); break;
       case 'd': do_draw_ca = 1; break;
       case 'a': ask_coord = 1; break;
+      case 'S': ask_state = 1; break;
+      case 'v': ask_state = 2; state_string = optarg; break;
       case 'x': col_count = atoi(optarg); break;
       case 'y': max_its   = atoi(optarg); break;
       case 'B': box_size  = atoi(optarg); break;
@@ -253,6 +258,8 @@ int main(int argc, char ** argv){
 " -r        - Specify rule for cellular automaton\n"
 " -d        - Actually draw the cellular automaton with Drowbot\n"
 " -a        - We will ask for alternative start coordinates (not 0,0)\n"
+" -S        - Ask for initial state interactively\n"
+" -v <state>- Provide initial state (using 0/1)\n"
 " -x <int>  - Column count for CA\n"
 " -y <int>  - Iteration (row) count for CA\n"
 " -B <int>  - Box size in steps\n"
@@ -301,6 +308,41 @@ int main(int argc, char ** argv){
       goto end;
 
     stop_capture();
+  } else if (ask_state){
+    if (ask_state == 2){
+      if (strlen(state_string) != (unsigned)col_count){
+        fprintf(stderr, "Invalid state string length\n");
+        goto end;
+      }
+      for (int i = 0; i < col_count; i++){
+        if (state_string[i] == '0')
+          init_state[i] = 0;
+        else if (state_string[i] == '1')
+          init_state[i] = 1;
+        else{
+          fprintf(stderr, "Invalid character in state string %c\n",
+                           state_string[i]);
+          goto end;
+        }
+      }
+
+    } else {
+      fprintf(stderr, "Enter CA state starting with | using 0/1>\n");
+      int sread = -1;
+      char c = 0;
+      while (sread < col_count){
+        c = getchar();
+        if (c == '|' && sread < 0)
+          sread = 0;
+        else if (sread < 0)
+          continue;
+        if (c == '0')
+          init_state[sread++] = 0;
+        else if (c == '1')
+          init_state[sread++] = 1;
+      }
+    }
+
   } else {
     fprintf(stderr, "Using random initial state (seed: %d)\n   |", seed);
     srand(seed);

@@ -79,3 +79,28 @@ DROWBOT COMMENCES
 | 0 | 0 | 0 | 1 | 0 | 1 | 1 | 0 |
 |   |   |   | # |   | # | # |   |
 |###|## |# #|#  | ##| # |  #|   |
+
+
+ 0    0:450   Blocks line
+ 0  450:2250  Blocks vertical lines
+ 0 2250:2450  Move out of the way
+ 1  150:500   Draw initial state
+ 2 1250:2600  Read initial state
+ 3  350:3100  Drowbotting from afar
+ 3  439:483   I cross through the frame
+ 4    0:800   Drowbotting closeby
+ 5    0:1200  Drowbotting closeup right
+ 6    0:900   Drowbotting closeup below
+ 7    0:950   Left stepper closeup
+ 8    0:600   Drowbotting closeby front
+10    0:500   Contrabottle zoom out
+10  500:1150  Right side of construction zoom out
+11    0:450   Finishing of from afar-ish
+
+
+9             Fighting autofocus on drivers, not useful
+
+
+vspipe final_ca_clips.vpy -y - | x264_x64 - --demuxer y4m --crf 20 --colormatrix bt709 -o final_ca_clipsev1.mkv --frames 6475 --preset slower
+mkvmerge final_ca_clipsev1.mkv audioparts_q64.m4a -o final_ca_clipsv1.mkv
+
