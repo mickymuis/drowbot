@@ -47,7 +47,7 @@ void rebuild_coords(){
   double s = (double)(LEN_TOP + drv_lpos() + drv_rpos())/2.0;
   double A = sqrt(s * (s-LEN_TOP) * (s-drv_lpos())* (s-drv_rpos()));
   double sy = (2 * A)/LEN_TOP;
-  double sx = sqrt(drv_lpos() * drv_lpos() + sy * sy);
+  double sx = sqrt(drv_lpos() * drv_lpos() - sy * sy);
   cx = (int)round(sx);
   cy = (int)round(sy);
 }
