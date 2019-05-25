@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="780.22571"
+   height="376.61871"
+   id="svg4420"
+   sodipodi:docname="drowbot-report.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata4424">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1417"
+     id="namedview4422"
+     showgrid="true"
+     inkscape:zoom="1.6774769"
+     inkscape:cx="404.09075"
+     inkscape:cy="-2.4769715"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4416"
+     inkscape:snap-bbox="true"
+     inkscape:snap-grids="true"
+     inkscape:measure-start="490,155"
+     inkscape:measure-end="515,30"
+     showguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4426"
+       originx="0.05797023"
+       originy="-341.74093" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4338">
+    <clipPath
+       id="KTaWuBScfxrA">
+      <path
+         d="M 0,0 H 1069 V 558 H 0 Z"
+         id="path4335"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:none" />
+    </clipPath>
+  </defs>
+  <g
+     transform="translate(-143.46838,-126.16852)"
+     clip-path="url(#KTaWuBScfxrA)"
+     id="g4418">
+    <g
+       id="g4416">
+      <path
+         d="m 682.55156,162.91367 h -21.2132 v 21.21321 h 21.2132 v -21.21321"
+         id="path4342"
+         inkscape:connector-curvature="0"
+         style="fill:#d32f2f;fill-opacity:0.09803922;fill-rule:evenodd;stroke:none;paint-order:stroke fill markers" />
+      <path
+         d="m 682.55156,162.91367 h -21.2132 v 21.21321 h 21.2132 v -21.21321"
+         stroke-miterlimit="10"
+         id="path4344"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#d32f2f;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:0.6;paint-order:fill stroke markers" />
+      <path
+         d="m 148.99284,162.91367 533.55872,304.8907"
+         stroke-miterlimit="10"
+         id="path4346"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#1565c0;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:0.69803922;paint-order:fill stroke markers" />
+      <text
+         font-size="24px"
+         font-style="normal"
+         font-weight="normal"
+         text-decoration="normal"
+         x="360.47745"
+         y="349.38541"
+         dominant-baseline="alphabetic"
+         id="text4352"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:geogebra-sans-serif, sans-serif;-inkscape-font-specification:'geogebra-sans-serif, sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;dominant-baseline:alphabetic;text-anchor:start;fill:#1565c0;fill-opacity:1;stroke:none">Left</text>
+      <path
+         d="M 911.21958,162.91367 682.55156,467.80437"
+         stroke-miterlimit="10"
+         id="path4354"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#1565c0;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:0.69803922;paint-order:fill stroke markers" />
+      <text
+         font-size="24px"
+         font-style="normal"
+         font-weight="normal"
+         text-decoration="normal"
+         x="795.4812"
+         y="349.66254"
+         dominant-baseline="alphabetic"
+         id="text4360"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:geogebra-sans-serif, sans-serif;-inkscape-font-specification:'geogebra-sans-serif, sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;dominant-baseline:alphabetic;text-anchor:start;fill:#1565c0;fill-opacity:1;stroke:none">Right</text>
+      <path
+         d="M 148.99284,162.91367 H 911.21958"
+         stroke-miterlimit="10"
+         id="path4362"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#000000;stroke-width:2.5;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:10.5, 8;stroke-opacity:0.69803922;paint-order:fill stroke markers" />
+      <text
+         font-size="24px"
+         font-style="normal"
+         font-weight="normal"
+         text-decoration="normal"
+         x="556.9292"
+         y="149.60553"
+         dominant-baseline="alphabetic"
+         id="text4368"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:geogebra-sans-serif, sans-serif;-inkscape-font-specification:'geogebra-sans-serif, sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;dominant-baseline:alphabetic;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">Top</text>
+      <path
+         d="M 148.99284,162.91367 H 682.55156"
+         stroke-miterlimit="10"
+         id="path4370"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#d32f2f;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:0.69803922;paint-order:fill stroke markers" />
+      <text
+         font-size="24px"
+         font-style="normal"
+         font-weight="normal"
+         text-decoration="normal"
+         x="402.40668"
+         y="198.20499"
+         dominant-baseline="alphabetic"
+         id="text4376"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:geogebra-sans-serif, sans-serif;-inkscape-font-specification:'geogebra-sans-serif, sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;dominant-baseline:alphabetic;text-anchor:start;fill:#d32f2f;fill-opacity:1;stroke:none">X</text>
+      <path
+         d="M 682.55156,467.80437 V 162.91367"
+         stroke-miterlimit="10"
+         id="path4378"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#d32f2f;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:0.69803922;paint-order:fill stroke markers" />
+      <text
+         font-size="24px"
+         font-style="normal"
+         font-weight="normal"
+         text-decoration="normal"
+         x="653.74628"
+         y="349.58746"
+         dominant-baseline="alphabetic"
+         id="text4384"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:geogebra-sans-serif, sans-serif;-inkscape-font-specification:'geogebra-sans-serif, sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;dominant-baseline:alphabetic;text-anchor:start;fill:#d32f2f;fill-opacity:1;stroke:none">Y</text>
+      <path
+         d="m 153.99284,162.91367 c 0,2.76143 -2.23857,5 -5,5 -2.76142,0 -5,-2.23857 -5,-5 0,-2.76142 2.23858,-5 5,-5 2.76143,0 5,2.23858 5,5 z"
+         id="path4386"
+         inkscape:connector-curvature="0"
+         style="fill:#000000;fill-opacity:1;stroke:none;paint-order:stroke fill markers" />
+      <path
+         d="m 153.99284,162.91367 c 0,2.76143 -2.23857,5 -5,5 -2.76142,0 -5,-2.23857 -5,-5 0,-2.76142 2.23858,-5 5,-5 2.76143,0 5,2.23858 5,5 z"
+         stroke-miterlimit="10"
+         id="path4388"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;paint-order:fill stroke markers" />
+      <text
+         font-size="24px"
+         font-style="normal"
+         font-weight="normal"
+         text-decoration="normal"
+         x="140.32776"
+         y="149.49664"
+         dominant-baseline="alphabetic"
+         id="text4394"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:geogebra-sans-serif, sans-serif;-inkscape-font-specification:'geogebra-sans-serif, sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;dominant-baseline:alphabetic;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">L</text>
+      <path
+         d="m 916.21958,162.91367 c 0,2.76143 -2.23858,5 -5,5 -2.76142,0 -5,-2.23857 -5,-5 0,-2.76142 2.23858,-5 5,-5 2.76142,0 5,2.23858 5,5 z"
+         id="path4396"
+         inkscape:connector-curvature="0"
+         style="fill:#000000;fill-opacity:1;stroke:none;paint-order:stroke fill markers" />
+      <path
+         d="m 916.21958,162.91367 c 0,2.76143 -2.23858,5 -5,5 -2.76142,0 -5,-2.23857 -5,-5 0,-2.76142 2.23858,-5 5,-5 2.76142,0 5,2.23858 5,5 z"
+         stroke-miterlimit="10"
+         id="path4398"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;paint-order:fill stroke markers" />
+      <text
+         font-size="24px"
+         font-style="normal"
+         font-weight="normal"
+         text-decoration="normal"
+         x="902.38159"
+         y="149.71861"
+         dominant-baseline="alphabetic"
+         id="text4404"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:geogebra-sans-serif, sans-serif;-inkscape-font-specification:'geogebra-sans-serif, sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;dominant-baseline:alphabetic;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none">R</text>
+      <path
+         d="m 687.55156,467.80437 c 0,2.76142 -2.23858,5 -5,5 -2.76142,0 -5,-2.23858 -5,-5 0,-2.76143 2.23858,-5 5,-5 2.76142,0 5,2.23857 5,5 z"
+         id="path4406"
+         inkscape:connector-curvature="0"
+         style="fill:#d32f2f;fill-opacity:1;stroke:none;paint-order:stroke fill markers" />
+      <path
+         d="m 687.55156,467.80437 c 0,2.76142 -2.23858,5 -5,5 -2.76142,0 -5,-2.23858 -5,-5 0,-2.76143 2.23858,-5 5,-5 2.76142,0 5,2.23857 5,5 z"
+         stroke-miterlimit="10"
+         id="path4408"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;paint-order:fill stroke markers" />
+      <text
+         font-size="24px"
+         font-style="normal"
+         font-weight="normal"
+         text-decoration="normal"
+         x="673.53131"
+         y="502.78723"
+         dominant-baseline="alphabetic"
+         id="text4414"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:geogebra-sans-serif, sans-serif;-inkscape-font-specification:'geogebra-sans-serif, sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;dominant-baseline:alphabetic;text-anchor:start;fill:#d32f2f;fill-opacity:1;stroke:none">P</text>
+    </g>
+  </g>
+</svg>

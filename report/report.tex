@@ -1,0 +1,454 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[12pt]{article}
+
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  unicode=true,
+  pdftitle={Robotics paper},
+  pdfsubject={Drowbot - A Suspended Polar Plotting Robot},
+  pdfauthor={Micky Faas, Koen Putman},
+  colorlinks=false,
+  breaklinks=true
+}
+
+
+% TODO: Add more citations in general because the paper is too long anyway
+% TODO: clean the code a bit to make sure it's deliverable
+
+\title{\vspace{-7em}
+\huge Drowbot \\ \vspace{.5em}
+\Large A Suspended Polar Plotting Robot}
+
+% TODO: Whoops I don't know your student number
+\author{Micky Faas (sXXXXXXX) \and Koen Putman (s1305557)}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+%TODO: Actually write this
+
+
+Doing an art might be hard, but what if robots and stuff.
+A ground-breaking project for sure, as in the ground might break if the
+suspended platform drops when the motors lose power.
+
+%%% Original abstract from long ago
+% There exist many different drawing- and writing robots. Examples
+% include Axibot [1] or [2]. The most common constructions are either arm-based
+% (single arm holding a pen) or have a plotter/CNC-style three-axis position pen.
+% Practical implementation often utilize the GCode protocol to send drawing
+% instructions to the robot; the robot itself lacks any ‘intelligence’, which basically
+% makes it a printer/plotting-device. The ‘Maestrobot’ differentiates itself by being
+% able to create its output untethered. It is equipped not only with a pen/marking-
+% tool, but also with a simple optical sensor (infrared-led-photodiode). Using
+% this sensor, the Maestrobot can ‘see’ what is already on the paper and use this
+% information to decide where/what to draw next. Different algorithms could
+% be suitable to add ‘intelligence’ to the robot’s drawing expertise. For example,
+% cellular automata could be used to finish a given start sequence or the input could
+% be combined with Perlin noise to create interesting textures. Eventually the
+% robot could be used to perform certain difficult or tedious tasks in human-made
+% art. These include repeating structures, fractals or extremely fine lines, given an
+% algorithm specified by the artist.
+% [1] https://www.axidraw.com/
+% [2] https://www.thingiverse.com/thing:2349232
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+While some might consider drawing a distinctly human art form,
+many tools have been devised to assist in the process.
+In recent years there has been a shift to digital with drawing
+tablets and drawing software and it is not unusual for a drawing
+to never exist outside of the digital realm.
+This digital realm is very convenient, but why stop there.
+Our increasingly digital lives have brought us electronics that
+allow the digital to act in the real world, including the robot.
+
+Many drawing robots have been devised to automate tedious and
+repetitive parts of the artistic process.
+These include drawings arms and three-axis CNC-like solutions that
+act as some form of plotter.
+But we believe that robots do not have to be deterministic plotters
+and wanted to see if they could interact with artwork and produce
+drawings without pre-programmed or direct control.
+Is it viable to give a drawing robot some agency to produce some
+form of art on its own.
+
+\section{Project Overview}
+\label{sec:overview}
+% Description and goals of the project
+
+We set out to create a drawing robot that is partially controlled by
+optical feedback.
+With our limited amount of time and a live prototype presentation
+on the horizon we had to set some constraints to make this possible.
+
+Given that the live demo was in a classroom the only viable drawing
+surface was the blackboard as transporting a large amount of surface
+to draw on was infeasible.
+
+Using the vertically mounted blackboard as surface and chalk as
+end-effector left us with a single viable approach.
+A suspended drawing platform attached to the top corners of the
+blackboard using cables.
+If we can vary the cable lengths and give the platform a way to
+disengage the chalk from the blackboard we end up with three
+degrees of freedom.
+We also put a camera on the platform as a means to gather the
+optical feedback we required.
+We will elaborate more on the specifics of the design in the next
+section and some even more details specifics can be found in the
+appendix.
+
+\subsection*{Related work and inspiration}
+Naturally we are not the first to use this suspended end-effector
+approach for a drawing robot.
+They are usually called polar plotters after their internal use
+of bipolar coordinates, which we will cover later on.
+While we used no code from any of these existing projects, we did
+lift some physical design inspiration from them.
+% TODO: figure out how to cite an in-document bibliography without warnings
+The Polargraph \cite{polargraphsite} in particular served as
+inspiration for the cables and how to drive them with the motors.
+
+%%% Code dependencies are probably pointless to list tbh
+% The only library dependency of our code is the PIGPIO library for
+% simplified GPIO and help with timing our signals, but replacing
+% this would not be particularly hard.
+% We also used the V4L2 drivers for the raspberry PI camera in order
+% to grab images through the file descriptor interface.
+
+
+\begin{figure}
+  \centering
+  \includegraphics{img/overview_rs.jpg}
+  \caption{Drowbot deployed on a blackboard}
+  \label{fig:overview}
+\end{figure}
+\section{Physical Design}
+\label{sec:design}
+Our prototype has a large physical presence as seen in Figure~\ref{fig:overview}.
+In this section we will try and give an overview of the parts involved
+while there is a more elaborate description in appendix \ref{sec:buildinst}.
+
+\subsection*{Motors and cables}
+% There is no better place to start than the reason why it (usually)
+% does not fall apart.
+The main body of these assemblies is mounted to the blackboard and
+contains a stepper motor and a 3D printed pulley for the beaded chain.
+We used the beaded chain because it is relatively light and very
+easy to hold firmly on a pulley to make sure it only moves when
+we want it to.
+
+One end of the chains holds an easily adjustable counterweight,
+a water bottle in this case, while the other holds the platform.
+On the platform side the chain is attached to a 3D printed handle
+that slips on a ball bearing around the tube that holds the chalk.
+
+You can find designs for the 3D printed objects on GitHub\cite{github}.
+
+\subsection*{The suspended platform}
+This platform is attached to the same chalk tube that we attached
+the chains to.
+It holds a good chunk of the electronics, like the Raspberry Pi Zero W
+that we use to drive the entire thing and the camera attached to it
+to gather optical feedback.
+The board ``glides'' on the blackboard using nylon bolts as a form of
+standoff.
+Disconnecting the chalk to stop drawing is achieved by a mechanism
+mounted right above the tube that pushes the platform away from the
+blackboard using a servo.
+To counteract the weight of the servo on the top of the platform
+we added some weight to the bottom.
+
+To get power for the Pi and servo, and send control signals to the
+motors up top we needed to run 7 separate lines, so we made a
+custom shield with an RJ45 jack on it so we could run Cat 5e
+cable to carry all of them.
+
+\subsection*{Motor drivers and power delivery}
+On the other end of that Cat 5e cable is another piece of protoboard,
+the final piece of our design puzzle.
+
+Controlling a stepper motor is something you usually hand off to some
+specialised circuitry and in our case we used two DRV8825 drivers.
+These drivers allowed us to use a separate stronger power supply for
+the motors while the rest of our electronics used a USB power supply.
+This proved very useful when we needed to switch to stronger motors
+to move and even hold the heavy platform.
+
+
+\section{Functionality}
+\label{sec:functionality}
+While the physical design is impressive, the only thing it can do
+without software is hold its place on the board.
+The actual software component for this project is very light since
+driving the system is essentially just moving the servo between
+two preset positions and telling the drivers when to step and in
+which direction.
+
+We will start this section by covering the core functionality and the
+demo we built on top of that, before moving on to a short explanation
+of some of the maths involved in the background.
+
+\subsection{Core functionality}
+The Drowbot can interpret a section of the blackboard as a grid
+and move feely within it using normal Cartesian coordinates.
+For our demo we only use a very simple interface with a single
+command telling it to move to specific coordinates while specifying
+if it should draw or lift the chalk from the board, but much more
+elaborate systems are technically in reach.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[t]{0.55\textwidth}
+    \centering
+    \includegraphics[height=15em]{img/ca_res.jpg}
+    \caption{Result from drawing a cellular automaton with Wolfram code 22}
+    \label{fig:ca_res}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.4\textwidth}
+    \centering
+    \includegraphics[height=15em]{img/dragon_curve.jpg}
+    \caption{A section of the dragon curve}
+    \label{fig:drag_curve}
+  \end{subfigure}
+\end{figure}
+
+\subsubsection*{1D cellular automaton}
+
+% TODO: cite stuff?
+We wanted a demonstration that shows a possible application of the
+optical feedback provided by the camera and with our relatively
+simple movement interface something simple like a one dimensional
+cellular automaton is a perfect fit.
+So we start by drawing some boxes on the board which can then be
+filled to provide a visual representation of the initial state.
+After someone has created the initial state we reactivate the
+Drowbot and it will read the initial state with the camera.
+A user is then invited to enter a Wolfram code of their liking
+and the drowbot will then start drawing the rest of the generations
+while using the user provided initial state and rule.
+
+An image of a resulting drawing can be seen in Figure~\ref{fig:ca_res}.
+The boxes are filled with a Z pattern to save time while drawing.
+There are some extra diagonal lines in the image because the system
+for lifting the chalk to stop drawing was not perfectly tuned.
+
+\subsubsection*{Dragon curve}
+
+% TODO: cite stuff?
+As it turns out our simple movement interface is very similar to
+turtle graphics and we can emulate most of the turtle graphics
+functionality with it.
+We wanted to show off how this robot can help people with drawing
+repetitive structures like fractals, so we ported the turtle
+graphics code for the dragon curve to run on the Drowbot.
+
+The resulting image before we ran out of drawing space can be
+seen in Figure~\ref{fig:drag_curve}.
+
+
+\subsection{Maths}
+% TODO: CITE STUFF? (a.k.a. link to wikipedia for some terms)
+
+To elaborate on the maths we have provided a small example image
+in Figure~\ref{fig:maths}.
+These maths are in no way advanced, but we think they are interesting
+enough to warrant explaining.
+They also make for a fun example.
+
+\begin{figure}[t]
+% \begin{wrapfigure}{r}{.45\textwidth}
+  \centering
+  % \includegraphics[width=.45\textwidth]{img/drowbot-maths.eps}
+  \includegraphics[width=.5\textwidth]{img/drowbot-maths.eps}
+  \caption{Example}
+  \label{fig:maths}
+% \end{wrapfigure}
+\end{figure}
+
+We colour coded the labels and lines in the example and will now
+explain what they represent.
+The black labels represent fixed constant values with $L$ and $R$
+representing the stepper motors, and $Top$ the distance between them.
+The blue $Left$ and $Right$ represent the chain lengths, which are
+the only variables we control directly.
+The red $P$ represents the platform at position $(X,Y)$ in Cartesian
+coordinates.
+One of the nice constraints in this case is that $P$ will never be
+left of $L$ or right of $R$ and will always be below $L$ and $R$ due
+to gravity. This helps simplify the calculations a bit.
+
+Through calibration and manual measurement we know the lengths $Top$,
+$Left$, and $Right$ and can use those to calculate the coordinates
+for point $P$.
+We shall start with $Y$, the height of the triangle $L,R,P$.
+
+Getting the height of a triangle with known side lengths is simple.
+We start with Heron's formula to calculate its area:
+$$s = \frac{Top + Left + Right}{2}$$
+$$Area = \sqrt{s(s-Top)(s-Left)(s-Right)}$$
+%
+Now we can solve the equation for the area of a triangle for the height:
+$$Area = \frac{height \times base}{2} = \frac{Y \times Top}{2}$$
+$$Y = \frac{2 \times Area}{Top}$$
+%
+We can then obtain the position of $X$ using the Pythagorean theorem:
+$$X = \sqrt{Left^2 - Y^2}$$
+
+Now that we know how to get from side length to coordinates we can
+also go in the opposite direction and calculate how long $Left$ and
+$Right$ need to be to get $P$ to a given $X,Y$.
+This is another simple application of the Pythagorean theorem:
+$$Left = \sqrt{X^2 + Y^2},\ Right = \sqrt{(Top - X)^2 + Y^2}$$
+
+The interface we used for our demonstration was based on moving
+in straight lines between two positions in the Cartesian coordinate
+system, which is not as trivial as it might seem.
+In the project overview we mentioned that polar plotters use a
+bipolar coordinate system internally, which is a system that uses
+the distances from two fixed centres to the target point as the
+coordinates.
+
+In our case that means that our internal position of $P$ is not
+$(X,Y)$, but actually the integer values for $(Left,Right)$
+which most closely approximate what would be the position $(X,Y)$
+that the user provided.
+
+This disconnect means that moving from one Cartesian coordinate
+to another in a straight line does not translate in a smooth linear
+change for the bipolar system.
+Sadly we lacked the time to properly analyse and solve this in an
+elegant fashion so we went with the other approach to change the
+straight line into a series of small line segments in Cartesian
+coordinates and translating those to bipolar coordinates so the
+overall movement seems to be straight.
+Even though we did not use any microstepping for our prototype
+while our drivers did support it we already had a resolution of
+about half a millimetre per step and considering how relatively
+inaccurate chalk is the difference between this interpolation
+and an actual straight line is absolutely invisible.
+
+\section{Conclusion and discussion}
+\label{sec:conclusion}
+% TODO: rewrite all of this when I'm slightly more sane
+
+In some miraculous fashion we managed to achieve all the lofty goals
+we set for this project.
+We have a functioning drawing robot that can read something from
+the blackboard and act based on whatever it saw on its own without
+direct input.
+
+This project was a lot of fun, but it also ended up costing both
+member a large part of the month we spent creating this.
+Almost every step of the way we faced a new setback and almost all
+of the initial parts of the design were replaced in the process.
+The end result worked so much better than we could have dreamt
+especially after all the setback so in a way the time investment
+might have been worth it.
+We did end up with a working drawing robot after all.
+Future work includes removing it from its blackboard and chalk
+constraints and see what it can do in an environment that is
+more controlled and easier to move in.
+
+
+\begin{thebibliography}{9}
+%TODO: MORE CITING
+
+\bibitem{polargraphsite}
+  \textit{Polargraph}, Sandy Noble
+  \\\url{http://www.polargraph.co.uk/}
+
+\bibitem{github}
+  \textit{Drowbot GitHub repository}, Micky Faas, Koen Putman
+  \\\url{https://github.com/mickymuis/drowbot}
+
+\end{thebibliography}
+
+
+
+\clearpage
+\appendix
+
+% Appendix I: An overview of the system requirements.
+\section{System requirements}
+\label{sec:sysreq}
+The general requirements are a lot of time on your hands and a wide
+arrangement of tools, but we will go into more details about what
+we used in this section.
+
+% TODO: Is this comprehensive or did I forget some things
+\subsection*{Motors and beaded chains}
+\begin{itemize}
+  \item A motor mount that can be clamped to the blackboard
+  \item NEMA 17 stepper motors (we used 1.8$^\circ$/step, 0.55N/M, 1.7A)
+  \item Beaded chains (we used chrome, 4.4mm beads, 2mm apart)
+  \item Several 3D printed parts (.stl available on GitHub)
+  \begin{itemize}
+    \item beaded chain pulleys for the stepper motors
+    \item levers to attach the chains to bearings on the platform
+    \item eyelets attach a counterweight to the chain
+  \end{itemize}
+  \item Counterweights (we used water bottles)
+\end{itemize}
+
+\subsection*{The suspended platform}
+\begin{itemize}
+  \item A platform to hold everything (printable template SVG available)
+  \item A Raspberry Pi Zero W or equivalent with
+  \begin{itemize}
+    \item at least 5 GPIO pins (2x step, 2x dir, 1x servo PWM)
+    \item a picamera or other camera with V4L2 drivers
+    \item an SD card with a Linux-based ARM OS (e.g. archlinuxarm)
+    \item the ability to compile and use the PIGPIO library (or
+          willingness to port the code to use some other GPIO library)
+  \end{itemize}
+  \item A custom shield for the Pi with
+  \begin{itemize}
+    \item A Female RJ45 connector to receive power and send signals
+    \item Some way to connect the servo to power and the PWM pin
+    \item Connections to several other GPIO pins for motor control
+    \item Power distribution to the Pi and servo
+    \item A 3.3V signal to send up from the Pi to the motor drivers
+  \end{itemize}
+  \item A servo to lift the chalk of the blackboard (like a MG996R)
+  \item A spring powered bar for the servo to push against
+  \item A camera mount for your camera
+  \item A tube to mount the end-effector in (we used chalk)
+  \item Ball bearings to hold the chain handles
+  \item Nylon bolts to use as standoffs for the platform
+  \item Standoffs to attach the Pi and the custom shield
+  \item Many other nuts and bolts for various purposes
+  \item Some kind of weight to hold the bottom of the platform down
+\end{itemize}
+
+\subsection*{Motor drivers and power delivery}
+\begin{itemize}
+  \item A power supply for the Pi/Servo (5V, 2A should do the trick)
+  \item A motor power supply (we used one with 19V, 3.16A)
+  \item A 100 \textmu F capacitor to put between motor power and ground
+  \item DRV8825 Stepper Motor Driver (or equivalent)
+  \item An RJ45 female plug to attach the Cat 5e cable
+  \item Some protoboard or equivalent with all the required wiring
+\end{itemize}
+
+
+%Appendix II: Complete and very clear instructions on how to get your
+% demo working.
+\section{Build instructions}
+\label{sec:buildinst}
+% TODO: I forgot how detailed this had to be but it sure needs to happen
+% TODO: ADD SPECS FOR EVERYTHING, or at least some wiring info
+
+\end{document}
+
