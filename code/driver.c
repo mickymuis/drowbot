@@ -39,7 +39,6 @@ int handle_steps(const int left, const int right){
   gpioWrite(R_DIR, (dir_r < 0)? 1 : 0);
   gpioDelay(1000);
 
-  // const int wait_len = (freq > 0) ? (((1000 * 1000)/2)/freq) : STEP_WAIT;
   const int wait_len = STEP_WAIT;
   double cl = step_l, cr = step_r;
   while (step_l > 0 || step_r > 0){
@@ -172,11 +171,11 @@ void drv_term(){
 }
 
 
-void drv_servo_stuff(){
+void drv_servo_testing(){
   // gpioServo(SRV_PWM, SRV_MID);
   int pos = SRV_MID;
   while (1){
-    fprintf(stderr, "%4d | NEW POS PLS [%d-%d]>", pos, SRV_MIN, SRV_MAX);
+    fprintf(stderr, "%4d | ENTER POS [%d-%d]>", pos, SRV_MIN, SRV_MAX);
     if (scanf("%d", &pos) != 1){
       perror("scanf");
       continue;
@@ -199,13 +198,13 @@ int cur_dir[2]  = {0, 0};
 void drv_new_set_dir(const int l_dir, const int r_dir){
   int wait = 0;
   if (l_dir != cur_dir[0] && l_dir){
-    fprintf(stderr, "Change l %d %d\n",l_dir,  l_dir * dir[0]);
+    // fprintf(stderr, "Change l %d %d\n",l_dir,  l_dir * dir[0]);
     gpioWrite(L_DIR, (l_dir * dir[0] > 0) ? 1 : 0);
     cur_dir[0] = l_dir;
     wait = 1;
   }
   if (r_dir != cur_dir[1] && r_dir){
-    fprintf(stderr, "Change r %d %d\n", r_dir, r_dir * dir[1]);
+    // fprintf(stderr, "Change r %d %d\n", r_dir, r_dir * dir[1]);
     gpioWrite(R_DIR, (r_dir * dir[1] > 0)? 1 : 0);
     cur_dir[1] = r_dir;
     wait = 1;

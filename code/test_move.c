@@ -8,7 +8,8 @@ int main(){
 
   int x,y,draw;
 
-  if (getchar()=='s')
+  fprintf(stderr, "Do you want to provide starting coordinates[y/N]>");
+  if (getchar()=='y')
     move_ask_for_coords();
 
 
@@ -19,8 +20,7 @@ int main(){
       break;
     if (x <  0 || y < 0)
       break;
-    // move_to(x, y, draw);
-    move_to_s(x, y, draw);
+    move_to(x, y, draw);
   }
 
   move_term();

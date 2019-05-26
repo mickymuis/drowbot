@@ -10,6 +10,10 @@
 #include <time.h>
 #include <fcntl.h>
 
+//Move around while dumping raw image data to the disk
+//Could be useful for debugging with many images without
+//having to transmit them over the network
+
 static int fcount = 0;
 static uint8_t * img_dat = NULL;
 static size_t img_len = 0;
@@ -33,7 +37,7 @@ int cb(void * data, size_t len, void * udat){
 void save_img_dat(){
   int now = time(NULL);
   char fn[128];
-  snprintf(fn, 128,"%d-%05d.YV12", now,dump_count++);
+  snprintf(fn, 128,"%d-%05d.Y420", now,dump_count++);
   int f = open(fn, O_WRONLY | O_CREAT, 00666);
   if (f > -1)
     if (write(f, img_dat, img_len) != (int)img_len)
@@ -63,11 +67,6 @@ void * imgsend_loop(void * data){
   return NULL;
 }
 
-
-// size_t curlread(char *bufptr, size_t size, size_t nitems, void *userp){
-
-  // "application/octet-stream";
-// }
 
 int main(int argc, char ** argv){
   if (argc < 2){

@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include "driver.h"
 
+//Allows you to execute steps directly in the bipolar coordinate domain
 
 int main(){
   if (drv_init(1, 1))
     return -1;
-
-  // drv_servo_stuff();
 
   int left, right, draw;
   while (1){

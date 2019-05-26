@@ -6,6 +6,13 @@
 #include <vector>
 #include "imgproc.h"
 
+//Will run a Mongoose webserver on localhost:8080 that can receive
+//raw images and display them while also processing the images with
+//the filter in imgproc.h
+//Run test_video on the Raspberry pi after setting the correct server
+//URL and this program will receive and display them.
+//q exits, but this might cause weird race conditions on the Pi side
+//so it might either crash here or on the pi if you are not careful
 
 #define IMG_W 640
 #define IMG_H 480

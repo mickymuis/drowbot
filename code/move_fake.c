@@ -4,6 +4,11 @@
 #include "calibration.h"
 #include <unistd.h>
 
+//Can be compiled as if it were move.c, but it will only output the
+//moves that it would execute instead of actually running them
+//useful for debugging
+//Just include move_fake.o instead of move.o in your build
+
 #define X_MAX LEN_TOP - (SX * 2)
 #define Y_MAX (1300 * 1000)/STEP_MCM
 
@@ -53,8 +58,4 @@ void move_term(){
 
 int move_ask_for_coords(){
   return 0;
-}
-
-int move_to_s(const int x, const int y, const int draw){
-  return move_to(x,y,draw);
 }

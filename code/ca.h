@@ -1,3 +1,4 @@
+//Cellular automaton simulation for the demo
 #ifndef __CA_H__
 #define __CA_H__
 void ca_init(const int code_nr, const int cols);

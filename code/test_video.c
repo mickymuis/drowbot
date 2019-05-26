@@ -9,6 +9,10 @@
 #include <time.h>
 #include <fcntl.h>
 
+//Initialises the camera and sends raw image data over the network with curl
+//Useful when used alongside opencv_server which will show images it receives
+
+#define SERVER_URL "http://192.168.43.36:8080/"
 
 static int fcount = 0;
 static uint8_t * img_dat = NULL;
@@ -36,7 +40,7 @@ void send_img_dat(){
     curl_easy_setopt(handle, CURLOPT_POSTFIELDS,    img_dat);
     curl_easy_setopt(handle, CURLOPT_POSTFIELDSIZE, img_len);
     curl_easy_setopt(handle, CURLOPT_HTTPHEADER,    headers);
-    curl_easy_setopt(handle, CURLOPT_URL, "http://192.168.43.36:8080/");
+    curl_easy_setopt(handle, CURLOPT_URL, SERVER_URL);
     CURLcode res = curl_easy_perform(handle);
     if (res){
       fprintf(stderr, "Error in CURL perform\n");
@@ -57,7 +61,6 @@ void save_img_dat(){
   close(f);
 }
 
-
 void * imgsend_loop(void * data){
   (void)data;
   run_imgloop = 1;
@@ -66,8 +69,6 @@ void * imgsend_loop(void * data){
     if (img_dat != NULL){
       fprintf(stderr, "Sending image\n");
       send_img_dat();
-      // save_img_dat();
-      // free(img_dat);
       requeue_buffer(img_dat);
       img_dat = NULL;
     }
@@ -79,12 +80,6 @@ void * imgsend_loop(void * data){
   return NULL;
 }
 
-
-
-// size_t curlread(char *bufptr, size_t size, size_t nitems, void *userp){
-
-  // "application/octet-stream";
-// }
 
 int main(int argc, char ** argv){
   if (argc < 2){

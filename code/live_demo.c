@@ -9,6 +9,8 @@
 #include <time.h>
 #include <unistd.h>
 
+//Our cellular automaton demo
+//Most of it should be self-explanatory
 
 #define COL_COUNT_MAX    255
 #define CAM_DELAY  500 * 1000UL * 1000UL
@@ -16,8 +18,8 @@
 #define MAX_X   2000
 #define MAX_Y   1200
 
-// #define MOVE_TO(x,y,draw) move_to(x,y,draw);
-#define MOVE_TO(x,y,draw) move_to_s(x,y,draw);
+//Set a new movement function if you so desire
+#define MOVE_TO(x,y,draw) move_to(x,y,draw);
 
 int col_count = 16;
 int box_size  = 100;
@@ -25,30 +27,20 @@ int base_row  = 1100;
 int row_len   = 0;
 int max_its   = 0;
 
-//Drawing stuff
+//Drawing functions
+//Horizontal lines starting from either the left or right
 void draw_hline(const int height, const int length, const int reverse){
-if (reverse){
-  MOVE_TO(length,height, 0);
-  MOVE_TO(0, height, 1);
-}
-else {
-  MOVE_TO(0,height, 0);
-  MOVE_TO(length, height, 1);
-}
-  // int steps = (length + 1)/box_size;
-  // if (reverse)
-  //   MOVE_TO(length, height, 0);
-  // else
-  //   MOVE_TO(0, height, 0);
-
-  // for (int i = 0; i <= steps; i++){
-  //   if (reverse)
-  //     MOVE_TO(length - i * box_size, height, 1);
-  //   else
-  //     MOVE_TO(i * box_size, height, 1);
-  // }
+  if (reverse){
+    MOVE_TO(length,height, 0);
+    MOVE_TO(0, height, 1);
+  }
+  else {
+    MOVE_TO(0,height, 0);
+    MOVE_TO(length, height, 1);
+  }
 }
 
+//Draws the boxes for user input
 void draw_initial_boxes(){
   fprintf(stderr, "Moving to base row\n");
   MOVE_TO(0, base_row, 0);
@@ -63,7 +55,7 @@ void draw_initial_boxes(){
   MOVE_TO(0, base_row - 400, 0);
 }
 
-
+//"fill" a cell with a Z pattern
 inline void draw_cell(const int row, const int col){
   MOVE_TO(col*box_size, base_row - box_size * row, 0);
   MOVE_TO((col + 1)*box_size, base_row - box_size * row,1);
@@ -75,7 +67,7 @@ inline void draw_cell(const int row, const int col){
   // MOVE_TO((col + 1)*box_size, base_row - (box_size *(row -1)),1);
 }
 
-
+//Draw all states until we run out of space
 int draw_ca(){
   MOVE_TO(0, base_row, 0);
   int * state = NULL;
@@ -167,7 +159,9 @@ int read_initial_state(){
   return 0;
 }
 
-//Cellular Automaton stuff
+//Cellular Automaton related functions
+
+//Output simulation based on the current state
 int sim_output(const int rule, const int cols, const int its, const int seed){
   ca_init(rule, cols);
 
@@ -195,6 +189,7 @@ int sim_output(const int rule, const int cols, const int its, const int seed){
   return 0;
 }
 
+//Help the user pick a rule with a preview of the result
 int pick_rule_no(){
   int pick = 0;
   int done = 0;

@@ -3,6 +3,10 @@
 #include "driver.h"
 #include "move.h"
 
+//Dragon curve turtle graphics code ported to C
+//Includes a rudimentary turtle graphics emulation layer built
+//on top of our simple movement interface
+
 // Limits
 #define MIN_X 0
 #define MAX_X 2000
@@ -22,7 +26,7 @@ static const int DIR_COEFF[][2] = {
   {0,  1}, // S
   {-1, 1}, // SE
   {-1, 0}, // E
-  {-1,-1} // NE
+  {-1,-1}  // NE
 };
 
 typedef struct {
@@ -60,7 +64,7 @@ turtle_line( turtle_t* t, int len ) {
     return -1;
   }
 
-  move_to_s( x, y, t->pen );
+  move_to( x, y, t->pen );
   t->x = x; t->y = y;
   return 0;
 }
@@ -93,7 +97,7 @@ int main(){
   turtle_t t;
   t.x = cx; t.y =cy; t.pen =1; t.dir =N;
 
-  move_to_s( cx, cy, 0 );
+  move_to( cx, cy, 0 );
 
   dragon_curve( &t, 9, LINE_LEN );
 

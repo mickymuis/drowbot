@@ -12,7 +12,12 @@
 
 #include <pthread.h>
 
+//A bunch of v4l2 handling here to facilitate a very simple
+//callback function that is called for every frame so the
+//end user will get their hand on all frames without any of
+//the hassle
 
+//Try to execute ioctl requests unti they finish or fail
 static int xioctl(int fh, int request, void *arg)
 {
   int r;
@@ -21,6 +26,7 @@ static int xioctl(int fh, int request, void *arg)
   return r;
 }
 
+//Simple buffer for framedata
 typedef struct buffer {
         void   *start;
         size_t  length;
@@ -37,6 +43,8 @@ int max_frames = 0;
 
 pthread_t thread = {0};
 
+//These are hardcoded values that should really have #defines
+//We just define a simple 640x480 YV420p stream
 int set_format(const int fd){
   struct v4l2_format fmt = {0};
   fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -50,6 +58,7 @@ int set_format(const int fd){
   return 0;
 }
 
+//Initialise the buffers and queue them
 int init_buffers(const int fd){
   struct v4l2_requestbuffers req = {0};
   req.count = 4;
@@ -93,6 +102,8 @@ int init_buffers(const int fd){
   return 0;
 }
 
+//Gets a frame and calls the callback
+//Will only requeue if the return of the callback was 0
 int get_frame(int fd){
   struct v4l2_buffer buf = {.type=V4L2_BUF_TYPE_VIDEO_CAPTURE,
                             .memory = V4L2_MEMORY_MMAP, {0}};
@@ -115,6 +126,7 @@ int get_frame(int fd){
   return 0;
 }
 
+//Requeue a previously unrequeued buffer you got in the callback
 int requeue_buffer(void * data){
   for (unsigned i = 0; i < buf_c; i++)
     if (buffers[i].start == data){
@@ -132,6 +144,7 @@ int requeue_buffer(void * data){
   return -1;
 }
 
+//Capture loops will just get frames and use the callback a lot
 void* main_loop(void * args){
   (void)args;
   enum v4l2_buf_type type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
@@ -193,6 +206,8 @@ static inline int set_control(int id, int value){
   return 0;
 }
 
+//Enable or disable v/h flipping and overlay
+//should really be separated, but oh well
 int set_controls(int value){
   if (set_control(0x00980914, value)) return -1;
   if (set_control(0x00980915, value)) return -1;

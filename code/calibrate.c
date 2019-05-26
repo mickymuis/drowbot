@@ -4,6 +4,18 @@
 #include <math.h>
 #include "driver.h"
 
+//This file attempts to guide the user through the calibration
+//process and will output the final calibration data to a provided
+//filename or - for stdout
+//Should be mostly self-explanatory but the basic steps are:
+//1. Determine the movement direction of the chains versus steppers
+//2. Ask to move to the top left corner of the field
+//3. Ask to measure chain lengths/top length in mm
+//4. Ask to move the left chain a few hundred steps
+//5. Ask for a new chain length measurement to determine steps/mm
+//6. Calculate all the necessary constants and writes them to a file
+//7. Returns the drowbot ot the top left
+
 #define MAX_MOVE   800
 #define MIN_STEPS    1
 
@@ -194,6 +206,7 @@ int write_file(const char * file){
   return 0;
 }
 
+//Heron's for area and solve area for height + pythagoras
 void calculate_startcoord(){
   double a = mm_top, b = mm_left, c = mm_right;
   double s = (double)(a + b + c)/2.0;

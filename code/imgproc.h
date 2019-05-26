@@ -1,6 +1,12 @@
 #include <stdint.h>
 #include <stdio.h>
 
+//Some messy image processing implementation to get the demo over with
+//The actual processing we use is counting the amount of pixels with
+//Y > THRESHOLD in the block (IP_SX,IP_SY) -> (IP_SX+IP_SIZE, IP_SX+IP_SIZE)
+//That's enough to tell the difference between blackboard and chalk so
+//If more that MIN_HIGH pixels are > THRESHOLD in the area we return 1
+
 #define IP_W 640
 #define IP_H 480
 #define IP_SIZE 100

@@ -8,6 +8,12 @@
 #include <stdlib.h>
 #include "imgproc.h"
 
+//Can open images dumped with test_dump and switch between them
+//Also executes the process_image function from imgproc.h
+//so you can test your image processing on the dumped images
+//on a good computer without needing the raspberry pi
+//Accepts a file list on argv[1+], switch with n/b/p keys exit with q/x
+
 #define IMG_W 640
 #define IMG_H 480
 #define IMGSIZE IMG_W * (IMG_H + IMG_H/2)
@@ -21,11 +27,7 @@ static void handle_img(void * data, const size_t len){
   process_image_verbose(data);
   cv::Mat imgbuf(IMG_H + IMG_H/2, IMG_W, CV_8UC1, data);
   rgbimg = cv::Mat(IMG_H, IMG_W, CV_8UC3);
-  // fprintf(stderr, "bufsize %lu\n", imgbuf.total());
-  // fprintf(stderr, "bufsize %lu\n", rgbimg.total());
-  // fprintf(stderr, "%d %d\n", rgbimg.rows, rgbimg.cols);
   cv::cvtColor(imgbuf, rgbimg, cv::COLOR_YUV2BGR_I420);
-  // fprintf(stderr, "%d %d\n", rgbimg.rows, rgbimg.cols);
   cv::imshow(gui_name, rgbimg);
 }
 
