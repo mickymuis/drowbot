@@ -30,20 +30,20 @@ function lerp( a, b, w ) = (a*w + b*(1-w));
 // Quality of cylinders/spheres
 $fa = 10;
 $fs = 0.4;
-$fn = 60;
+$fn = 100;
 
 // Dimensions of the design (mm)
-di = 32.0; // Inner diameter of the ring
-do = 50.0; // Outer diameter of the ring
+di = 32.1; // Inner diameter of the ring
+do = 48.0; // Outer diameter of the ring
 db = 40.0; // Boss diameter
-h0 = 3.5; // Height of the base
-hb = 6.5; // Height of the boss 
-lt = 30.0; // Length of the tab (from the edge of the ring)
+h0 = 4.0; // Height of the base
+hb = 6.0; // Height of the boss 
+lt = 25.0; // Length of the tab (from the edge of the ring)
 wt = 10.0; // Width of the tip of the tab
 
 // For the ball-chain anchor
 ds = 4.6; // Diameter of the balls 
-dl = 1.5; // Diameter of the links
+dl = 1.1; // Diameter of the links
 ll = 6.1; // Link length (distance between two ball centers)
 n  = 3; // Number of pockets to hold balls
 
@@ -77,7 +77,7 @@ difference() {
              intersection() {
                  cylinder( h=hb, d=do, center=true );
                  for (i = [1: screw_count]) {
-                    rotate ([0, 0, 90+360/screw_count * i]) {
+                    rotate ([0, 0, 135+360/screw_count * i]) {
                         cube( [do, nut_diameter*1.5, hb], center =true );
                     }
                  }
@@ -90,7 +90,7 @@ difference() {
     // Screw holes
     translate ([0, 0, h0 + hb/4])
     for (i = [1: screw_count]) {
-        rotate ([0, 0, 90+360/screw_count * i]) {
+        rotate ([0, 0, 135+360/screw_count * i]) {
             translate ([db/2, 0, 0])
             rotate ([0 ,90 , 0])
             cylinder (db, r = screw_diameter/2, center = true);
