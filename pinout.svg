@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="32.167726"
-     inkscape:cy="85.897854"
+     inkscape:cx="110.73915"
+     inkscape:cy="265.18357"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -55,7 +55,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -158,45 +158,45 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.17499995px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="33.450893"
-       y="67.946426"
+       y="73.238091"
        id="text4583"><tspan
          sodipodi:role="line"
          id="tspan4581"
          x="33.450893"
-         y="67.946426"
+         y="73.238091"
          style="stroke-width:0.26458332">DIR</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.17499995px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="33.261906"
-       y="81.175591"
+       y="86.467255"
        id="text4583-6"><tspan
          sodipodi:role="line"
          id="tspan4581-2"
          x="33.261906"
-         y="81.175591"
+         y="86.467255"
          style="stroke-width:0.26458332">DIR</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.17499995px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="30.616072"
-       y="73.427078"
+       y="69.382736"
        id="text4633"><tspan
          sodipodi:role="line"
          id="tspan4631"
          x="30.616072"
-         y="73.427078"
+         y="69.382736"
          style="stroke-width:0.26458332">STEP</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.17499995px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="30.616072"
-       y="86.65625"
+       y="82.42292"
        id="text4633-6"><tspan
          sodipodi:role="line"
          id="tspan4631-1"
          x="30.616072"
-         y="86.65625"
+         y="82.42292"
          style="stroke-width:0.26458332">STEP</tspan></text>
     <text
        xml:space="preserve"
@@ -290,22 +290,22 @@
          x="26.080355"
          y="116.79985"
          style="stroke-width:0.26458332"
-         id="tspan4685">L DIR</tspan><tspan
+         id="tspan4685">L STEP</tspan><tspan
          sodipodi:role="line"
          x="26.080355"
          y="120.7686"
          style="stroke-width:0.26458332"
-         id="tspan4687">L STEP</tspan><tspan
+         id="tspan4687">L DIR</tspan><tspan
          sodipodi:role="line"
          x="26.080355"
          y="124.73735"
          style="stroke-width:0.26458332"
-         id="tspan4689">R DIR</tspan><tspan
+         id="tspan4689">R STEP</tspan><tspan
          sodipodi:role="line"
          x="26.080355"
          y="128.7061"
          style="stroke-width:0.26458332"
-         id="tspan4691">R STEP</tspan><tspan
+         id="tspan4691">R DIR</tspan><tspan
          sodipodi:role="line"
          x="26.080355"
          y="132.67485"
@@ -346,22 +346,22 @@
          x="52.160717"
          y="116.98883"
          style="stroke-width:0.26458332"
-         id="tspan4701">5</tspan><tspan
+         id="tspan4701">12</tspan><tspan
          sodipodi:role="line"
          x="52.160717"
          y="120.95758"
          style="stroke-width:0.26458332"
-         id="tspan4703">12</tspan><tspan
+         id="tspan4703">5</tspan><tspan
          sodipodi:role="line"
          x="52.160717"
          y="124.92633"
          style="stroke-width:0.26458332"
-         id="tspan4705">6</tspan><tspan
+         id="tspan4705">13</tspan><tspan
          sodipodi:role="line"
          x="52.160717"
          y="128.89508"
          style="stroke-width:0.26458332"
-         id="tspan4707">13</tspan><tspan
+         id="tspan4707">6</tspan><tspan
          sodipodi:role="line"
          x="52.160717"
          y="132.86383"
