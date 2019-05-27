@@ -47,7 +47,7 @@
 \begin{abstract}
 %TODO: Actually write this
 % Micky: zo ouwehoer ik mijzelf dus een weg door het leven...
-In the past, plotting-devices were usually very expensive and specialised
+In the past, plotting-devices were usually very expensive specialised
 equipment used by big printing studios.
 % In recent years, the emergence of affordable embedded platforms such as Arduino and Raspberry Pi have given rise to a myriad of plotters that are available to the general public and DIY-community.
 That changed with the emergence of affordable platforms like Arduino and the
@@ -56,8 +56,8 @@ affordable plotters for the general public.
 Those plotters are used by hobbyists, tinkerers, print-makers, and artists that
 want to explore the boundaries of man-machine synergy.
 What most of these plotters have in common is that they are unidirectional
-devices: they simply execute drawing instructions sent by their operator
-and perform them.
+devices: they simply perform the drawing instructions they get from their
+operator.
 We introduce Drowbot, a bidirectional polar plotter.
 By using optical feedback, Drowbot can expand, adapt and interpolate
 directly on the canvas - allowing Drowbot to become a co-author rather than a tool.
@@ -134,7 +134,8 @@ more details about our prototype design can be found in the appendix.
 \subsection*{Related work and inspiration}
 The class of plotters that includes our Drowbot is usually called \emph{polar plotter} after their internal use
 of bipolar coordinates, which we will cover later on.
-The \emph{Polargraph} \cite{polargraphsite} is probably the best known variant and this project also served as inspiration for some of the construction aspects of Drowbot (although we used no code from any of these existing projects).
+The \emph{Polargraph} \cite{polargraphsite} is probably the best known variant and this project also served as inspiration for some of the construction aspects of Drowbot,
+but no code from this or any other existing polar plotter was used.
 % TODO: figure out how to cite an in-document bibliography without warnings
 
 %%% Code dependencies are probably pointless to list tbh
@@ -155,15 +156,15 @@ while there is a more elaborate description in appendix \ref{sec:buildinst}.
 % does not fall apart.
 The main body of these assemblies is mounted to the blackboard and
 contains a stepper motor and a special pulley for the beaded chain.
-We used the beaded chain because it is relatively light and very
-easy to hold firmly on a pulley to make sure it only moves when
-we want it to.
+We used the beaded chain because it is light and easy to hold firmly
+on the pulley. That helps to ensure that it only moves when we want it to.
 
 Both beaded chains connect to the middle of the gondola using ball-bearings.
-This allows the gondola to be kept upright regardless of the angle of the chains.
-The chalk is placed through the bearings such that it is always the centre of the force applied to the gondola.
-
-Both the pulleys and the handles that connect to the bearing are 3D printed. Designs for the 3D printed objects can be found on GitHub\cite{github}.
+This keeps the gondola upright regardless of the angle of the chains.
+The chalk is placed in the tube that the bearings are mounted on so it is always
+at the centre of the forces applied to to gondola.
+Both the pulleys and the handles that connect to the bearing are 3D printed.
+Designs for the 3D printed objects can be found on GitHub\cite{github}.
 
 \subsection*{The gondola}
 This ``moving platform'' is attached to the same chalk tube that we attached
@@ -176,7 +177,7 @@ standoff or ``legs''.
 Lifting the chalk to stop drawing is achieved by a mechanism that pushes the platform away from the
 blackboard using a servo-motor.
 To counteract the weight of the servo on the top of the platform
-we have also added some counterweight to the bottom.
+we added some counterweight to the bottom.
 
 In order to power the electronics and send control signals back to the
 motors up top, we need to run 7 separate wires. We made a
@@ -262,7 +263,7 @@ graphics code for the \emph{Heighway dragon curve}\cite{dragon} to run on Drowbo
 The resulting image can be seen in Figure~\ref{fig:drag_curve}.
 
 
-\subsection{Maths}
+\subsubsection*{Maths}
 % Problem solved (or more specifically, moved)
 Moving the gondola over the board is done by varying the lengths of the
 chains on both sides in order to reach the desired position.
@@ -302,14 +303,13 @@ of the initial parts of the design were replaced in the process.
 The end result worked so much better than we could have dreamt,
 especially considering all the setbacks.
 
-Although we did end up with a working prototype,
-obviously still many improvements must be made in order arrive at a production model.
+Although we did end up with a working prototype, there are various obvious
+improvements we have to make in order to get it closer to a production model.
 Future work includes removing it from its blackboard and chalk
 constraints and see what it can do on a medium that is
 more controlled and easier to move in, such as ink on paper.
-Furthermore we believe that much more interesting algorithms can be devised
-where the optical feedback system could be even more useful.
-
+We also want to look for or devise more algorithms where the optical
+feedback system could play a more significant role.
 
 \begin{thebibliography}{9}
 %TODO: MORE CITING
@@ -429,7 +429,7 @@ we used in this section.
   \item A power supply for the Pi/Servo (we used 5V USB with at least 2A)
   \item A motor power supply (we used one with 19V, 3.16A)
   \item A 100 \textmu F capacitor to smooth current between motor power and ground
-  \item DRV8825 Stepper Motor Driver (or equivalent)
+  \item Two DRV8825 Stepper Motor Drivers (or equivalent)
   \item Two RJ45 sockets to attach the Cat 5e cable
   \item We used protoboard to create a shield for the RasberryPi in order to route the used pins to the RJ45. The motors drivers are mounted on a second protoboard, also containing a female RJ45 socket and an micro-usb socket for 5V supply.
 \end{itemize}
@@ -449,13 +449,14 @@ we used in this section.
   \label{fig:gondola}
 \end{figure}
 
-\textbf{Step 1.} The gondola consists of a baseplate from acrylate with several component mounted on top of that. The first step is to cut/drill out the baseplate from 4 mm acrylate using the template in Figure~\ref{fig:baseplate}. An SVG with more accurate dimensions can be found on GitHub\cite{github} and printed \emph{mirrored} using a \emph{laser} printer. We then transfer the print to a piece of well-sanded acrylate using the thinner-method\footnote{In a thinner-print, thinner is used to dissolve the cellulose in the paper and firmly attach the remaining toner to the printed surface.}.
+\textbf{Step 1.} The gondola consists of a baseplate from acrylate with several components mounted on top of it.
+The first step is to cut/drill out the baseplate from 4 mm acrylate using the template in Figure~\ref{fig:baseplate}. An SVG with more accurate dimensions can be found on GitHub\cite{github} and printed \emph{mirrored} using a \emph{laser} printer. We then transfer the print to a piece of well-sanded acrylate using the thinner-method\footnote{In a thinner-print, thinner is used to dissolve the cellulose in the paper and firmly attach the remaining toner to the printed surface.}.
 
 \textbf{Step 2.} The next step is to mount the electronics. The camera is mounted on a piece of rectangular acrylate, with holes that correspond to the holes on the baseplate marked ``camera''. Make the appropriate holes to fit your camera. The assembly is then mounted using long M3 bolts and winged nuts to set the desired distance. The RaspberryPi (with shield, see below) can be put on M3 standoffs in the corresponding holes.
 
 \textbf{Step 3.} The servo is fit at the top, but the precise method depends on the servo used. In the design, two rectangles are marked to be cut out. These cut-outs can be used to either fit ``hooks'' from acrylate that hold the servo, or simply use tie-wraps. The hooks we used are matched to the holes in the servo, which accommodate four M3 bolts to hold the servo in place.
 
-\textbf{Step 4.} The four most outward M6 holes are for the legs of gondola. The bottom legs are simple M6 bolts fitted with nylon cap-nuts (it that a word?). The upper legs can be moved by the servo to lift the pen. For this we have fit a thin strip of acrylate with corresponding holes to spring loaded bolts. We use slightly longer bolts here that have a partially thread-less shaft in order to move through the holes without friction.
+\textbf{Step 4.} The four most outward M6 holes are for the legs of gondola. The bottom legs are simple M6 bolts fitted with nylon cap-nuts. The upper legs can be moved by the servo to lift the pen. For this we have fit a thin strip of acrylate with corresponding holes to spring loaded bolts. We use slightly longer bolts here that have a partially thread-less shaft in order to move through the holes without friction.
 
 \textbf{Step 5.} The lower two holes can be used to fit counterweight to the gondola. We needed to use approximately 200 grams. Note that the further the weight is placed \emph{above} the gondola, the more pressure it applies to the bottom.
 
@@ -476,6 +477,7 @@ we used in this section.
   \caption{Assembled and attached motor suspensions}
   \label{fig:motors}
 \end{figure}
+
 \subsection{Building and attaching the motor suspensions}
 
 The motor suspensions in are simple brackets (in our case, of wood) that hold an acrylic NEMA-17 faceplate. The thickness of the brackets is approximately 30 mm and should be chosen in such way that the pulleys almost touch the board. The brackets are also cut in such way that the chain can move unobstructed to one side (thus, the left and right brackets are mirrored).
@@ -483,7 +485,6 @@ The motor suspensions in are simple brackets (in our case, of wood) that hold an
 Mounting the brackets depends on the medium it has to print on. Jigsaw clamps are a practical solution for mounting to (black-)boards with a thickness between 10 and 30 mm.
 
 You can see a fully assembled example in Figure~\ref{fig:motors}.
-
 
 \subsection{Wiring the RaspberryPi shield}
 
@@ -569,7 +570,7 @@ integer values for $(Left,Right)$ which most closely approximate $(X,Y)$.
 This all seems relatively simple until you want to draw a smooth
 straight line between two Cartesian coordinate points.
 The resulting step sequence in the bipolar system is far from smooth
-and if you simple smooth the movement between the source and target
+and if you simply smooth the movement between the source and target
 chain lengths you will probably end up with curved lines.
 
 Sadly we didn't have enough time to figure out an elegant solution so
