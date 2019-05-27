@@ -499,6 +499,17 @@ we used in this section.
   \label{fig:gondola}
 \end{figure}
 
+\textbf{Step 1.} The gondola consists of a baseplate from acrylate with several component mounted on top of that. The first step is to cut/drill out the baseplate from 4 mm acrylate using the template in Figure \ref{fig:baseplate}. An SVG with more accurate dimensions can be found on GitHub\cite{github} and printed \emph{mirrored} using a \emph{laser} printer. We then transfer the print to a piece of well-sanded acrylate using the thinner-method\footnote{In a thinner-print, thinner is used to dissolve the cellulose in the paper and firmly attach the remaining toner to the printed surface.}.
+
+\textbf{Step 2.} The next step is to mount the electronics. The camera is mounted on a piece of rectangular acrylate, with holes that correspond to the holes on the baseplate marked ``camera''. Make the appropriate holes to fit your camera. The assembly is then mounted using long M3 bolts and winged nuts to set the desired distance. The RaspberryPi (with shield, see below) can be put on M3 standoffs in the corresponding holes.
+
+\textbf{Step 3.} The servo is fit at the top, but the precise method depends on the servo used. In the design, two rectangles are marked to be cut out. These cut-outs can be used to either fit ``hooks'' from acrylate that hold the servo, or simply use tie-wraps. The hooks we used are matched to the holes in the servo, which accommodate four M3 bolts to hold the servo in place.
+
+\textbf{Step 4.} The four most outward M6 holes are for the legs of gondola. The bottom legs are simple M6 bolts fitted with nylon cap-nuts (it that a word?). The upper legs can be moved by the servo to lift the pen. For this we have fit a thin strip of acrylate with corresponding holes to spring loaded bolts. We use slightly longer bolts here that have a partially thread-less shaft in order to move through the holes without friction.
+
+\textbf{Step 5.} The lower two holes can be used to fit counterweight to the gondola. We needed to use approximately 200 grams. Note that the further the weight is placed \emph{above} the gondola, the more pressure it applies to the bottom.
+
+\textbf{Step 6.} Finally we attach the pen holder in the 12 mm hole of the baseplate. The pen holder conists of two ball-bearings measuring 32x10 mm, which are press-fit over the tube. The bearings are attached to the ball-chain using 3d-printed levers (orange on the photo). Lastly some means is needed to secure the pen in the tube. The chalk we used fitted exactly in the 10 mm inner diameter of the tube. We used an M10 bolt (with thread cut on the inside of the tube) to adjust the depth of the chalk.
 
 % Micky: ik heb maar PNG gedaan want ik had geen zin om met LaTeX te vechten om mijn SVGs...
 \begin{figure}[h!]
@@ -510,11 +521,26 @@ we used in this section.
 
 \subsection{Building and attaching the motor suspensions}
 
+The motor suspensions are simple brackets (in our case, of wood) that hold an acrylic NEMA-17 faceplate. The thickness of the brackets is approximately 30 mm and should be chosen in such way that the pulleys almost touch the board. The brackets are also cut in such way that the chain can move unobstructed to one side (thus, the left and right brackets are mirrored).
+
+Mounting the brackets depend largely on the used medium to print on. Jigsaw clamps are a practical solution for mounting to (black-)boards with a thickness between 10 and 30 mm.
+
 \begin{figure}[h!]
   \centering
   \includegraphics{img/motorsusp.jpg}
   \caption{Assembled and attached motor suspensions}
   \label{fig:gondola}
+\end{figure}
+
+\subsection{Wiring the RaspberryPi shield}
+
+The shield for the RaspberryPi is relatively simple as it is simple used to route a number of GPIO pins to the servo and RJ45 socket. Figure \ref{fig:pinout} provides a template for how to connect the different pins that we used to the RJ45 socket. In addition, a three-pin header is used to plug the servo motor to the board. 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=.75]{img/pinout.png}
+  \caption{Pin-out used for the RJ45 wiring}
+  \label{fig:pinout}
 \end{figure}
 
 \subsection{Constructing and wiring the driver assembly}
@@ -526,14 +552,8 @@ we used in this section.
   \label{fig:driverboard}
 \end{figure}
 
+The driver board can be attached to the top of the drawing surface and connects the gondola to the motors as well as power to the gondola. The main components are two pre-fabricated DRV8825 stepper-motor driver boards. Different boards could be used and it is necessary to consult the pinout of the drivers in question to wire them correctly to the power input and signals from the gondola. The connection with the gondola is made with the other side of the UTP cable that connects to the shield on the RaspberryPi. We decided to utilize two separate power supplies: one for the motors and one for the RaspberryPi and servo. In this design, one 5V line runs down to the gondola, while the RaspberryPi provides 3.3V back to power the logic circuit of the drivers. In hindsight, it is also possible to power the driver logic using the same 5V from the USB power supply, so that would free up one pin on the RJ45. 
 
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=.75]{img/pinout.png}
-  \caption{Pin-out used for the RJ45 wiring}
-  \label{fig:pinout}
-\end{figure}
 
 % TODO: I forgot how detailed this had to be but it sure needs to happen
 % TODO: ADD SPECS FOR EVERYTHING, or at least some wiring info
