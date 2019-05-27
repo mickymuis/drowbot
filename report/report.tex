@@ -9,6 +9,8 @@
 \usepackage{wrapfig}
 \usepackage{amsmath}
 \usepackage[hidelinks]{hyperref}
+\usepackage[margin=40mm]{geometry}
+
 \hypersetup{
   unicode=true,
   pdftitle={Robotics paper},
@@ -29,9 +31,10 @@
 % TODO: Add more citations in general because the paper is too long anyway
 % TODO: clean the code a bit to make sure it's deliverable
 
-\title{\vspace{-7em}
-\includegraphics[scale=.85]{img/logo.png} \\ \vspace{.5em}
-%\huge Drowbot 
+% Converted logo SVG to eps so we lose the aliasing
+\title{\vspace{-5.5em}
+\includegraphics[scale=1]{img/logo.eps} \\ \vspace{.5em}
+%\huge Drowbot
 \Large \sffamily{A Suspended Polar Plotting Robot}}
 
 % TODO: Whoops I don't know your student number
@@ -44,7 +47,20 @@
 \begin{abstract}
 %TODO: Actually write this
 % Micky: zo ouwehoer ik mijzelf dus een weg door het leven...
-In the past, plotting-devices were usually very expensive and specialistic equipment used by big printing studios. In recent years, the emergence of affordable embedded platforms such as Arduino as RaspberryPi have given rise to a myriad of plotters that are available to the general public and DIY-community. Those plotters are used by hobbyists, tinkerers, print-makers and also artists wanting to explore the boundaries of man-machine synergy. What most of these plotters have in common is that they are unidirectional devices: they simply execute drawing instructions sent by their operator and perform them. We introduce Drowbot, a bidirectional polar plotter. By using optical feedback, Drowbot can expand, adapt and interpolate directly on the canvas - allowing Drowbot to become a co-author rather than a tool.
+In the past, plotting-devices were usually very expensive and specialised
+equipment used by big printing studios.
+% In recent years, the emergence of affordable embedded platforms such as Arduino and Raspberry Pi have given rise to a myriad of plotters that are available to the general public and DIY-community.
+That changed with the emergence of affordable platforms like Arduino and the
+Raspberry Pi, which have allowed the DIY-community to create a myriad of
+affordable plotters for the general public.
+Those plotters are used by hobbyists, tinkerers, print-makers, and artists that
+want to explore the boundaries of man-machine synergy.
+What most of these plotters have in common is that they are unidirectional
+devices: they simply execute drawing instructions sent by their operator
+and perform them.
+We introduce Drowbot, a bidirectional polar plotter.
+By using optical feedback, Drowbot can expand, adapt and interpolate
+directly on the canvas - allowing Drowbot to become a co-author rather than a tool.
 
 %%% Original abstract from long ago
 % There exist many different drawing- and writing robots. Examples
@@ -104,20 +120,21 @@ surface was the blackboard, as transporting a large amount of surface
 to draw on was infeasible.
 
 Using the vertically mounted blackboard as surface and chalk as
-end-effector seemed to have left us with a single viable approach: 
+end-effector seemed to have left us with a single viable approach:
 using a suspended drawing platform or \emph{gondola} attached to the top corners of the
-blackboard using cables, much akin a Delta 3D-printer with less axes.
+blackboard using cables, akin to a Delta 3D-printer but with fewer axes.
 If we can vary the cable lengths and give the gondola a way to
 disengage the chalk from the blackboard we end up with three
-degrees of freedom. Moreover, the camera on the gondola serves as a means to gather the
+degrees of freedom.
+Moreover, the camera on the gondola serves as a means to gather the
 optical feedback we required.
-We will elaborate more on the specifics of the design in the next
-section and some even more details specifics can be found in the
-appendix.
+We will provide an overview of the design in the next sections and
+more details about our prototype design can be found in the appendix.
 
 \subsection*{Related work and inspiration}
 The class of plotters that includes our Drowbot is usually called \emph{polar plotter} after their internal use
-of bipolar coordinates, which we will cover later on. The \emph{Polargraph} \cite{polargraphsite} is probably the best known variant and this project also served as inspiration for some of the construction aspects of Drowbot (although we used no code from any of these existing projects).
+of bipolar coordinates, which we will cover later on.
+The \emph{Polargraph} \cite{polargraphsite} is probably the best known variant and this project also served as inspiration for some of the construction aspects of Drowbot (although we used no code from any of these existing projects).
 % TODO: figure out how to cite an in-document bibliography without warnings
 
 %%% Code dependencies are probably pointless to list tbh
@@ -142,9 +159,9 @@ We used the beaded chain because it is relatively light and very
 easy to hold firmly on a pulley to make sure it only moves when
 we want it to.
 
-Both beaded chains connect to the middle of the gondola using ball-bearings. 
+Both beaded chains connect to the middle of the gondola using ball-bearings.
 This allows the gondola to be kept upright regardless of the angle of the chains.
-The chalk is placed through the bearings such that it is always the center of the force applied to the gondola.
+The chalk is placed through the bearings such that it is always the centre of the force applied to the gondola.
 
 Both the pulleys and the handles that connect to the bearing are 3D printed. Designs for the 3D printed objects can be found on GitHub\cite{github}.
 
@@ -152,9 +169,9 @@ Both the pulleys and the handles that connect to the bearing are 3D printed. Des
 This ``moving platform'' is attached to the same chalk tube that we attached
 the chains to.
 It holds a good chunk of the electronics, like the Raspberry Pi Zero W
-that we use to drive the entire thing and the camera attached to it
-to gather optical feedback.
-The board ``glides'' on the blackboard using nylon bolts as a form of
+that we use to drive the entire thing and the camera we use to gather
+optical feedback.
+The gondola ``glides'' on the blackboard using nylon bolts as a form of
 standoff or ``legs''.
 Lifting the chalk to stop drawing is achieved by a mechanism that pushes the platform away from the
 blackboard using a servo-motor.
@@ -171,7 +188,7 @@ cable to carry all of necessary signals.
 %On the other end of that Cat 5e cable is another piece of protoboard,
 %the final piece of our design puzzle.
 
-Stepper motor is usually performed by dedicated circuitry and in our case we used two DRV8825 drivers.
+We used two DRV8825 drivers to simplify controlling the stepper motors.
 These drivers allowed us to use a separate stronger power supply for
 the motors while the rest of our electronics used a USB power supply.
 This proved very useful when we needed to switch to stronger motors
@@ -212,7 +229,7 @@ elaborate systems are technically in reach.
 %simple movement interface something simple like a one dimensional
 %cellular automaton is a perfect fit.
 
-The one dimensional cellular automaton\cite{elemca} is the perfect 
+The one dimensional cellular automaton\cite{elemca} is the perfect
 tool to demonstrate the application of optical feedback on the Drowbot.
 
 We start by drawing a number of boxes on the board which can be
@@ -246,93 +263,22 @@ The resulting image can be seen in Figure~\ref{fig:drag_curve}.
 
 
 \subsection{Maths}
-% TODO: CITE STUFF? (a.k.a. link to wikipedia for some terms)
-% TODO: Can you make this a litte shorter? 
-% Since this is not something I currently have knowledge of, I didn't want to touch it...
+% Problem solved (or more specifically, moved)
+Moving the gondola over the board is done by varying the lengths of the
+chains on both sides in order to reach the desired position.
+So our coordinate system represents a position as two distances from
+the steppers which are mounted in fixed positions.
+This is the bipolar coordinate system~\cite{bipolar} we mentioned earlier,
+which is very different from the Cartesian coordinates we use for our
+drawing interface.
+To handle the translation between these systems we have to calibrate
+the device using measurements for the chain lengths and how far the
+stepper motors are apart, as well as the length of a stepper motor
+step.
+When calibrated properly the precision of the system is about as good
+as it gets for chalk on blackboard.
 
-To elaborate on the maths we have provided a small example image
-in Figure~\ref{fig:maths}.
-These maths are in no way advanced, but we think they are interesting
-enough to warrant explaining.
-They also make for a fun example.
-
-\begin{figure}[t]
-% \begin{wrapfigure}{r}{.45\textwidth}
-  \centering
-  % \includegraphics[width=.45\textwidth]{img/drowbot-maths.eps}
-  \includegraphics[width=.5\textwidth]{img/drowbot-maths.eps}
-  \caption{Mapping polar to Cartesian coordinates.}
-  \label{fig:maths}
-% \end{wrapfigure}
-\end{figure}
-
-We colour coded the labels and lines in the example and will now
-explain what they represent.
-The black labels represent fixed constant values with $L$ and $R$
-representing the stepper motors, and $Top$ the distance between them.
-The blue $Left$ and $Right$ represent the chain lengths, which are
-the only variables we control directly.
-The red $P$ represents the platform at position $(X,Y)$ in Cartesian
-coordinates.
-One of the nice constraints in this case is that $P$ will never be
-left of $L$ or right of $R$ and will always be below $L$ and $R$ due
-to gravity. This helps simplify the calculations a bit.
-
-Through calibration and manual measurement we know the lengths $Top$,
-$Left$, and $Right$ and can use those to calculate the coordinates
-for point $P$.
-We shall start with $Y$, the height of the triangle $L,R,P$.
-
-Getting the height of a triangle with known side lengths is simple.
-We start with Heron's formula to calculate its area:
-$$s = \frac{Top + Left + Right}{2}$$
-$$Area = \sqrt{s(s-Top)(s-Left)(s-Right)}$$
-%
-Now we can solve the equation for the area of a triangle for the height:
-$$Area = \frac{height \times base}{2} = \frac{Y \times Top}{2}$$
-$$Y = \frac{2 \times Area}{Top}$$
-%
-We can then obtain the position of $X$ using the Pythagorean theorem:
-$$X = \sqrt{Left^2 - Y^2}$$
-
-Now that we know how to get from side length to coordinates we can
-also go in the opposite direction and calculate how long $Left$ and
-$Right$ need to be to get $P$ to a given $X,Y$.
-This is another simple application of the Pythagorean theorem:
-$$Left = \sqrt{X^2 + Y^2},\ Right = \sqrt{(Top - X)^2 + Y^2}$$
-
-The interface we used for our demonstration was based on moving
-in straight lines between two positions in the Cartesian coordinate
-system, which is not as trivial as it might seem.
-In the project overview we mentioned that polar plotters use a
-bipolar coordinate system internally, which is a system that uses
-the distances from two fixed centres to the target point as the
-coordinates.
-
-In our case that means that our internal position of $P$ is not
-$(X,Y)$, but actually the integer values for $(Left,Right)$
-which most closely approximate what would be the position $(X,Y)$
-that the user provided.
-
-% Micky: I'm not saying we should completely leave this part out, 
-% but it may not be necessary to go into detail about our weaknesses.
-% I know, I also have major problems leaving out information and feeling dishonest for it.
-% However, you already pointed out the approximation in the paragraph above
-% and I think we can leave it at that. Still too many pages...
-
-%This disconnect means that moving from one Cartesian coordinate
-%to another in a straight line does not translate in a smooth linear
-%change for the bipolar system.
-%Sadly we lacked the time to properly analyse and solve this in an
-%elegant fashion so we went with the other approach to change the
-%straight line into a series of small line segments in Cartesian
-%coordinates and translating those to bipolar coordinates so the
-%overall movement seems to be straight.
-%Even though we did not use any microstepping for our prototype
-%while our drivers did support it we already had a resolution of
-%about half a millimetre per step and considering how relatively
-%inaccurate chalk is the difference between this interpolation
-%and an actual straight line is absolutely invisible.
+More details and a simple example can be found in Appendix~\ref{sec:maths}.
 
 \section{Conclusion and discussion}
 \label{sec:conclusion}
@@ -349,19 +295,19 @@ that the user provided.
 %member a large part of the month we spent creating this.
 
 % Micky: this one comes right out of my collection of standard NT sentences I keep in a yar.
-The design of the Drowbot was challenging yet rewarding experience 
-and we are glad to have met most of not all of the goals we had initially set.
+The design of the Drowbot was challenging yet rewarding experience
+and we are glad to have met most, if not all, of the goals we had initially set.
 Almost every step of the way we faced a new setback and almost all
 of the initial parts of the design were replaced in the process.
 The end result worked so much better than we could have dreamt,
 especially considering all the setbacks.
 
-Although we did end up with a working prototype, 
-obviously still many improvements must be made in order arrive at a production model. 
+Although we did end up with a working prototype,
+obviously still many improvements must be made in order arrive at a production model.
 Future work includes removing it from its blackboard and chalk
 constraints and see what it can do on a medium that is
-more controlled and easier to move in, such as ink on paper. 
-Furthermore we believe that much more interesting algorithms can be devised 
+more controlled and easier to move in, such as ink on paper.
+Furthermore we believe that much more interesting algorithms can be devised
 where the optical feedback system could be even more useful.
 
 
@@ -386,6 +332,11 @@ In: Reviews of Modern Physics, Vol. 55.3: 601--644.
 \bibitem{dragon}
 \textit{Dragon Cuve} on Wolfram Mathworld
 \\\url{http://mathworld.wolfram.com/DragonCurve.html}
+
+\bibitem{bipolar}
+\textit{Bipolar Coordinates} on Wolfram Mathworld
+\\\url{http://mathworld.wolfram.com/BipolarCoordinates.html}
+
 
 \end{thebibliography}
 
@@ -419,11 +370,9 @@ In: Reviews of Modern Physics, Vol. 55.3: 601--644.
   \label{fig:overview}
 \end{figure}
 
-% Micky: Is this really necessary?
-%\section{Physical Design}
-%\label{sec:design}
 
 % Appendix I: An overview of the system requirements.
+\clearpage
 \section{System requirements}
 \label{sec:sysreq}
 The general requirements are a lot of time on your hands and a wide
@@ -487,6 +436,7 @@ we used in this section.
 
 %Appendix II: Complete and very clear instructions on how to get your
 % demo working.
+\clearpage
 \section{Build instructions}
 \label{sec:buildinst}
 
@@ -499,7 +449,7 @@ we used in this section.
   \label{fig:gondola}
 \end{figure}
 
-\textbf{Step 1.} The gondola consists of a baseplate from acrylate with several component mounted on top of that. The first step is to cut/drill out the baseplate from 4 mm acrylate using the template in Figure \ref{fig:baseplate}. An SVG with more accurate dimensions can be found on GitHub\cite{github} and printed \emph{mirrored} using a \emph{laser} printer. We then transfer the print to a piece of well-sanded acrylate using the thinner-method\footnote{In a thinner-print, thinner is used to dissolve the cellulose in the paper and firmly attach the remaining toner to the printed surface.}.
+\textbf{Step 1.} The gondola consists of a baseplate from acrylate with several component mounted on top of that. The first step is to cut/drill out the baseplate from 4 mm acrylate using the template in Figure~\ref{fig:baseplate}. An SVG with more accurate dimensions can be found on GitHub\cite{github} and printed \emph{mirrored} using a \emph{laser} printer. We then transfer the print to a piece of well-sanded acrylate using the thinner-method\footnote{In a thinner-print, thinner is used to dissolve the cellulose in the paper and firmly attach the remaining toner to the printed surface.}.
 
 \textbf{Step 2.} The next step is to mount the electronics. The camera is mounted on a piece of rectangular acrylate, with holes that correspond to the holes on the baseplate marked ``camera''. Make the appropriate holes to fit your camera. The assembly is then mounted using long M3 bolts and winged nuts to set the desired distance. The RaspberryPi (with shield, see below) can be put on M3 standoffs in the corresponding holes.
 
@@ -512,33 +462,36 @@ we used in this section.
 \textbf{Step 6.} Finally we attach the pen holder in the 12 mm hole of the baseplate. The pen holder conists of two ball-bearings measuring 32x10 mm, which are press-fit over the tube. The bearings are attached to the ball-chain using 3d-printed levers (orange on the photo). Lastly some means is needed to secure the pen in the tube. The chalk we used fitted exactly in the 10 mm inner diameter of the tube. We used an M10 bolt (with thread cut on the inside of the tube) to adjust the depth of the chalk.
 
 % Micky: ik heb maar PNG gedaan want ik had geen zin om met LaTeX te vechten om mijn SVGs...
-\begin{figure}[h!]
+% Koen:  Inkscape kan naar eps exporteren, dus dat is mijn standaard strategie
+\begin{figure}[p]
   \centering
-  \includegraphics{img/gondola.png}
+  \includegraphics{img/gondola.eps}
   \caption{Design template for the gondola baseplate}
   \label{fig:baseplate}
 \end{figure}
 
-\subsection{Building and attaching the motor suspensions}
-
-The motor suspensions are simple brackets (in our case, of wood) that hold an acrylic NEMA-17 faceplate. The thickness of the brackets is approximately 30 mm and should be chosen in such way that the pulleys almost touch the board. The brackets are also cut in such way that the chain can move unobstructed to one side (thus, the left and right brackets are mirrored).
-
-Mounting the brackets depend largely on the used medium to print on. Jigsaw clamps are a practical solution for mounting to (black-)boards with a thickness between 10 and 30 mm.
-
-\begin{figure}[h!]
+\begin{figure}[p]
   \centering
   \includegraphics{img/motorsusp.jpg}
   \caption{Assembled and attached motor suspensions}
-  \label{fig:gondola}
+  \label{fig:motors}
 \end{figure}
+\subsection{Building and attaching the motor suspensions}
+
+The motor suspensions in are simple brackets (in our case, of wood) that hold an acrylic NEMA-17 faceplate. The thickness of the brackets is approximately 30 mm and should be chosen in such way that the pulleys almost touch the board. The brackets are also cut in such way that the chain can move unobstructed to one side (thus, the left and right brackets are mirrored).
+
+Mounting the brackets depends on the medium it has to print on. Jigsaw clamps are a practical solution for mounting to (black-)boards with a thickness between 10 and 30 mm.
+
+You can see a fully assembled example in Figure~\ref{fig:motors}.
+
 
 \subsection{Wiring the RaspberryPi shield}
 
-The shield for the RaspberryPi is relatively simple as it is simple used to route a number of GPIO pins to the servo and RJ45 socket. Figure \ref{fig:pinout} provides a template for how to connect the different pins that we used to the RJ45 socket. In addition, a three-pin header is used to plug the servo motor to the board. 
+The shield for the RaspberryPi is relatively simple as it is simple used to route a number of GPIO pins to the servo and RJ45 socket. Figure \ref{fig:pinout} provides a template for how to connect the different pins that we used to the RJ45 socket. In addition, a three-pin header is used to plug the servo motor to the board.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[scale=.75]{img/pinout.png}
+  \includegraphics[scale=.75]{img/pinout.eps}
   \caption{Pin-out used for the RJ45 wiring}
   \label{fig:pinout}
 \end{figure}
@@ -552,11 +505,104 @@ The shield for the RaspberryPi is relatively simple as it is simple used to rout
   \label{fig:driverboard}
 \end{figure}
 
-The driver board can be attached to the top of the drawing surface and connects the gondola to the motors as well as power to the gondola. The main components are two pre-fabricated DRV8825 stepper-motor driver boards. Different boards could be used and it is necessary to consult the pinout of the drivers in question to wire them correctly to the power input and signals from the gondola. The connection with the gondola is made with the other side of the UTP cable that connects to the shield on the RaspberryPi. We decided to utilize two separate power supplies: one for the motors and one for the RaspberryPi and servo. In this design, one 5V line runs down to the gondola, while the RaspberryPi provides 3.3V back to power the logic circuit of the drivers. In hindsight, it is also possible to power the driver logic using the same 5V from the USB power supply, so that would free up one pin on the RJ45. 
+The driver board can be attached to the top of the drawing surface and connects the gondola to the motors as well as power to the gondola. The main components are two pre-fabricated DRV8825 stepper-motor driver boards. Different boards could be used and it is necessary to consult the pinout of the drivers in question to wire them correctly to the power input and signals from the gondola. The connection with the gondola is made with the other side of the UTP cable that connects to the shield on the RaspberryPi. We decided to utilize two separate power supplies: one for the motors and one for the RaspberryPi and servo. In this design, one 5V line runs down to the gondola, while the RaspberryPi provides 3.3V back to power the logic circuit of the drivers. In hindsight, it is also possible to power the driver logic using the same 5V from the USB power supply, so that would free up one pin on the RJ45.
 
 
 % TODO: I forgot how detailed this had to be but it sure needs to happen
 % TODO: ADD SPECS FOR EVERYTHING, or at least some wiring info
+
+\clearpage
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=.45\textwidth]{img/drowbot-maths.eps}
+  \caption{Mapping bipolar coordinates to Cartesian coordinates.}
+  \label{fig:maths}
+\end{figure}
+\section{Maths}
+\label{sec:maths}
+
+To elaborate on the maths we have provided a small example image
+in Figure~\ref{fig:maths}.
+These maths are in no way advanced, but we think they are interesting
+enough to warrant explaining in more detail.
+The lines and labels in the example are colour coded so we will start
+by explaining what they represent.
+
+The black labels represent fixed constant values with $L$ and $R$
+representing the stepper motors, and $Top$ the distance between them.
+
+The blue $Left$ and $Right$ represent the chain lengths, the variables
+we control directly.
+
+The red $P$ represents the platform at position $(X,Y)$ in Cartesian
+coordinates.
+
+One of the nice constraints in our case is that $P$ will never be
+left of $L$ or right of $R$ and will always be below $L$ and $R$ due
+to gravity. This simplifies some of the calculations.
+
+To calibrate our system we want to determine the position of $P$ based
+on our measurements of $Left$, $Right$, and $Top$.
+We will start by calculating $Y$, the height of the triangle $L,R,P$.
+
+To get the height of a triangle for which you know all side lengths.
+You can start by calculating its area using Heron's formula:
+$$s = \frac{Top + Left + Right}{2}\qquad Area = \sqrt{s(s-Top)(s-Left)(s-Right)}$$
+%
+Now we can solve the equation for the area of a triangle for the height
+and obtain $Y$:
+$$Area = \frac{height \times base}{2} = \frac{Y \times Top}{2}
+\quad \rightarrow \quad Y = \frac{2 \times Area}{Top}$$
+%
+We can then obtain the position of $X$ using the Pythagorean theorem:
+$$X = \sqrt{Left^2 - Y^2}$$
+
+Now that we know how to get from side length to coordinates we can
+also go in the opposite direction and calculate how long $Left$ and
+$Right$ need to be to get $P$ to a given $X,Y$.
+This is another simple application of the Pythagorean theorem:
+$$Left = \sqrt{X^2 + Y^2},\ Right = \sqrt{(Top - X)^2 + Y^2}$$
+
+So our internal position of $P$ is not $(X,Y)$, but actually the
+integer values for $(Left,Right)$ which most closely approximate $(X,Y)$.
+
+This all seems relatively simple until you want to draw a smooth
+straight line between two Cartesian coordinate points.
+The resulting step sequence in the bipolar system is far from smooth
+and if you simple smooth the movement between the source and target
+chain lengths you will probably end up with curved lines.
+
+Sadly we didn't have enough time to figure out an elegant solution so
+we ended up interpolating the line using very small movements in the
+Cartesian system, but in the future we would like to figure out if
+there is a nice way to handle this.
+
+% The interface we used for our demonstration was based on moving
+% in straight lines between two positions in the Cartesian coordinate
+% system, which is not as trivial as it might seem when translated to
+% our bipolar coordinate system.
+
+% This disconnect means that moving from one Cartesian coordinate
+% to another in a straight line does not translate in a smooth linear
+% change for the bipolar system.
+
+% % Micky: I'm not saying we should completely leave this part out,
+% % but it may not be necessary to go into detail about our weaknesses.
+% % I know, I also have major problems leaving out information and feeling dishonest for it.
+% % However, you already pointed out the approximation in the paragraph above
+% % and I think we can leave it at that. Still too many pages...
+
+% Sadly we lacked the time to properly analyse and solve this in an
+% elegant fashion so we went with the other approach to change the
+% straight line into a series of small line segments in Cartesian
+% coordinates and translating those to bipolar coordinates so the
+% overall movement seems to be straight.
+% % Even though we did not use any microstepping for our prototype
+% % while our drivers did support it we already had a resolution of
+% % about half a millimetre per step and considering how relatively
+% % inaccurate chalk is the difference between this interpolation
+% % and an actual straight line is absolutely invisible.
+
 
 \end{document}
 
